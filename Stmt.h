@@ -46,4 +46,9 @@ class Stmt4{
     int Depth;
     SymTab* sTable;
 };
+////////////////////////////////////////////////////////////////////
+class Stmt5{
+    //do stmt while(allexpression);
+
+};
 #endif //INC_125PROJ_STMT_H

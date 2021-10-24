@@ -4,26 +4,6 @@
 #include <string>
 
 using namespace std;
-class Token {
-public:
-    Token *next;
-    Token *prev;
-    std::string data;
-    std::string Class;
-    Token(string data, string Class) : data(data),Class(Class), next(nullptr), prev(nullptr){};
-};
-
-class linked_list {
-public:
-    Token *head, *tail;
-    linked_list();
-    ~linked_list();
-    bool isEmpty();
-    int listSize();
-    void push(string input, string Class);
-    void pop();
-    linked_list split(int pos);
-};
 
 class Lexer {
     linked_list* List;

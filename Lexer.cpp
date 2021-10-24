@@ -2,79 +2,9 @@
 #include <fstream>
 #include <string>
 #include "Lexer.h"
+#include "Linked_list.h"
 using namespace std;
-////////////////////Linked List Functions///////////////////////////////////////
-linked_list::linked_list(){
-    head = tail = NULL;
-}
 
-linked_list::~linked_list(){
-    Token* temp;
-    while(head){
-        temp = head;
-        head = head->next;
-        delete temp;
-    }
-    tail = NULL;
-}
-
-bool linked_list::isEmpty(){return (head == NULL);}
-
-int linked_list::listSize(){
-    Token* temp = head;
-    if(isEmpty()){return 0;}
-    int count =1;
-    while(temp->next){temp = temp->next; count++; }
-    return count;
-}
-
-void linked_list::push(string input, string Class){
-    Token* temp = new Token(input, Class);
-    if(isEmpty()){head = tail =temp;}
-    else
-    if(listSize()==1){
-        tail->next = temp;
-        tail = temp;
-        tail->next = NULL;
-        head->next = tail;
-        tail->prev=head;
-    }
-    else {
-        tail->next = temp;
-        temp->prev = tail;
-        tail = temp;
-        tail->next = NULL;
-    }
-}
-void linked_list::pop(){
-    string tok;
-    if(head){tok = head->data;}
-    Token* temp =head;
-    head = temp->next;
-    delete temp;
-};
-
-linked_list linked_list::split(int position){
-    Token* temp = head;
-    int SZ = listSize();
-    int pos = 0;
-    if(position >= SZ){throw 1;}
-    while(pos< position){
-        pos++;
-        temp=temp->next;
-    }
-    linked_list new_list;
-    if(position == 0){ new_list.head = head; new_list.tail = tail; tail = head = nullptr; }
-    else {
-        new_list.head = temp;
-        new_list.tail = tail;
-        tail = temp->prev;
-        tail->next = nullptr;
-        new_list.head->prev = nullptr;
-    }
-    return new_list;
-
-}
 //////////////////////////////Lexer Functions////////////////////////////////////
 Lexer::Lexer(){
     List = new linked_list();
