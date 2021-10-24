@@ -2,6 +2,7 @@
 #ifndef INC_125PROJ_LEXER_H
 #define INC_125PROJ_LEXER_H
 #include <string>
+#include "Linked_list.h"
 
 using namespace std;
 
