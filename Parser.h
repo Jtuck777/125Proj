@@ -2,54 +2,11 @@
 #define INC_125PROJ_PARSER_H
 #include <vector>
 #include "Lexer.h"
-#include "Stmt.h"
+#include "Statement.h"
+#include "SymTab.h"
 
-
-class Decl{
-    friend class SymTab;
-public:
-    Decl(std::string T, std::string I){type = T; id = I;}
-    std::string type;
-    std::string id;
-};
-
-/////////////////////////////////////////////////////////
-
-class SymTab{
-public:
-    SymTab();
-    SymTab(SymTab* T){prev = T;};
-    SymTab* prev;
-    std::vector<Decl> D;
-    void push(Decl d){ D.push_back(d);};
-
-    bool inTable(std::string I){ int i=0; while(i<D.size()){if(D[i].id == I){return true; }}}
-    std::string findType(std::string I){ int i=0; while(i<D.size()){if(D[i].id == I){return D[i].type; }}}
-};
-//////////////////////////////////////////////////////////////////////
-class incdecexpr{public: incdecexpr(linked_list list, SymTab* T, int Depth);};
-class factor    {public: factor(linked_list list, SymTab* T, int Depth);};
-class term      {public: term(linked_list list, SymTab* T, int Depth);};
-class expr      {public: expr(linked_list list, SymTab* T, int Depth);};
-class rel       {public: rel(linked_list list, SymTab* T, int Depth); };
-class equal     {public: equal(linked_list list, SymTab* T, int Depth);};
-class andexpr   {public: andexpr(linked_list list, SymTab* T, int Depth);};
-class allexpr   {public: allexpr(linked_list list, SymTab* T, int Depth);};
-
-////////////////////////////////////////////////////////////////////////
-class Stmt{
-public:
-    Stmt(linked_list list, SymTab* T, int D){sTable = T; Depth = D;};
-    SymTab* sTable;
-    int Depth;
-    Stmt1* S1;
-    Stmt2* S2;
-    Stmt3* S3;
-};
-
-////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////
+//Block object should pass a complete statement into stmt class
+//Class will determine what type of stmt it is, create a new stmt depending on type.
 
 class Block{
     friend class Prog;
