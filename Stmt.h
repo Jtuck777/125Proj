@@ -21,12 +21,14 @@ public:
     Token* ID;
     allexpr* allExpression;
     void printStmt1(); //Prints "|" according to depth, and the corresponding components. ID, allexpr.
+
 };
 ////////////////////////////////////////////////////////////////////
 class Stmt2{
     //if(allexpr)stmt
 public:
-    Stmt2(linked_list list, SymTab* T, int D){sTable = T, Depth = D;}
+    Stmt2(linked_list list, SymTab* T, int D){sTable = T, Depth = D; LIST = list;}
+    linked_list LIST;
     int Depth;
     SymTab* sTable;
     Token* IF;
@@ -38,7 +40,8 @@ public:
 class Stmt3{
     //if(allexpr) stmt else stmt
     public:
-    Stmt3(linked_list list, SymTab* T, int D){sTable = T, Depth = D;}
+    Stmt3(linked_list list, SymTab* T, int D){sTable = T, Depth = D;LIST=list;}
+    linked_list LIST;
     int Depth;
     SymTab* sTable;
     allexpr* allExpresion;
@@ -52,7 +55,8 @@ class Stmt3{
 class Stmt4{
     //while(allexpr)stmt
 public:
-    Stmt4(linked_list list, SymTab* T, int D){sTable = T, Depth = D;}
+    Stmt4(linked_list list, SymTab* T, int D){sTable = T, Depth = D;LIST=list;}
+    linked_list LIST;
     int Depth;
     SymTab* sTable;
     Token* While;
@@ -64,7 +68,8 @@ public:
 class Stmt5{
     //do stmt while(allexpression);
 public:
-    Stmt5(linked_list list, SymTab* T, int D){sTable = T, Depth = D;}
+    Stmt5(linked_list list, SymTab* T, int D){sTable = T, Depth = D;LIST=list;}
+    linked_list LIST;
     int Depth;
     SymTab* sTable;
     Token* DO;
@@ -77,7 +82,8 @@ public:
 class Stmt6{
     //for(assign allexpr; incdecexpr) stmt
 public:
-    Stmt6(linked_list list, SymTab* T, int D){sTable = T, Depth = D;}
+    Stmt6(linked_list list, SymTab* T, int D){sTable = T, Depth = D;LIST=list;}
+    linked_list LIST;
     int Depth;
     SymTab* sTable;
     Token* FOR;

@@ -7,6 +7,15 @@
 
 //Block object should pass a complete statement into stmt class
 //Class will determine what type of stmt it is, create a new stmt depending on type.
+class Parser{
+public:
+    Parser(Lexer Lex);
+
+
+};
+
+
+
 
 class Block{
     friend class Prog;
@@ -22,8 +31,6 @@ public:
         //Add newly created Decl to sym Table
         // or Add newly created stmt to stmt Vector
     };
-
-
 };
 
 class Prog{
