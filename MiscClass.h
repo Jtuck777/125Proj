@@ -7,7 +7,7 @@
 #include "linked_list.h"
 #include "SymTab.h"
 
-
+class andexpr;
 class allexpr   {public: allexpr(linked_list list, SymTab* T, int Depth);};
 
 class incdecexpr{
@@ -34,7 +34,8 @@ public:
 };
 class term      {
     //term * factor | term / factor | factor
-public: term(linked_list list, SymTab* T, int D){sTable = T, Depth = D;}
+public:
+    term(linked_list list, SymTab* T, int D){sTable = T, Depth = D;}
     int Depth;
     SymTab* sTable;
     term* T1;
@@ -42,10 +43,50 @@ public: term(linked_list list, SymTab* T, int D){sTable = T, Depth = D;}
     factor* F1;
     void printTerm();
 };
-class expr      {public: expr(linked_list list, SymTab* T, int D);};
-class rel       {public: rel(linked_list list, SymTab* T, int D); };
-class equal     {public: equal(linked_list list, SymTab* T, int D);};
-class andexpr   {public: andexpr(linked_list list, SymTab* T, int D);};
+class expr      {
+    // expr + term | expr - term | term
+public:
+    expr(linked_list list, SymTab* T, int D){sTable = T, Depth = D;}
+    int Depth;
+    SymTab* sTable;
+    expr* E1;
+    Token* Sym;
+    term* T1;
+    void PrintExpr();
+};
+class rel       {
+    //expr<expr | expr<=expr | expr>expr | expr>=expr | expr
+public:
+    rel(linked_list list, SymTab* T, int D){sTable = T, Depth = D;}
+    int Depth;
+    SymTab* sTable;
+    expr* E1;
+    Token* Sym;
+    expr* T1;
+    void PrintRel(); };
+
+class EQ     {
+    // equal==rel | equal != rel | rel
+public:
+    EQ(linked_list list, SymTab* T, int D){sTable = T, Depth = D;}
+    int Depth;
+    SymTab* sTable;
+    EQ* E1;
+    Token* Sym;
+    rel* R1;
+    void PrintEqual();
+};
+
+class andexpr   {
+    // andexpr && equal | equal
+public:
+    andexpr(linked_list list, SymTab* T, int D){sTable = T, Depth = D;}
+    int Depth;
+    SymTab* sTable;
+    andexpr* AE1;
+    Token* AND;
+     EQ* E1;
+    void PrintAndExpr();};
 class assign    {
     //id = allepr
 public:
