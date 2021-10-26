@@ -7,8 +7,8 @@
 using namespace std;
 
 class Lexer {
-    linked_list* List;
 public:
+    linked_list* List;
     Lexer();
     ~Lexer();
     int bookmark = 0;

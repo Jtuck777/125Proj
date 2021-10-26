@@ -9,6 +9,7 @@
 #include "SymTab.h"
 #include "MiscClass.h"
 
+
 class Stmt;
 
 class Stmt1{
@@ -27,13 +28,18 @@ public:
 class Stmt2{
     //if(allexpr)stmt
 public:
-    Stmt2(linked_list list, SymTab* T, int D){sTable = T, Depth = D; LIST = list;}
+    Stmt2(linked_list list, SymTab* T, int D)
+    {sTable = T, Depth = D; LIST = list;
+    allExpression = FindALLexpr(LIST, sTable, Depth);
+    S1 = FindStmt(LIST, sTable, Depth);}
     linked_list LIST;
     int Depth;
     SymTab* sTable;
     Token* IF;
     allexpr* allExpression;
-    Stmt* statement;
+    Stmt* S1;
+    allexpr* FindALLexpr(linked_list list, SymTab* T, int D);
+    Stmt* FindStmt(linked_list list, SymTab* T, int D);
     void printStmt2();
 };
 ///////////////////////////////////////////////////////////////////

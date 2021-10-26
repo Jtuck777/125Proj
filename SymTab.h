@@ -12,11 +12,11 @@ class SymTab{
 public:
     SymTab();
     SymTab* prev;
-    std::vector<Decl> D;
-    void push(Decl d){ D.push_back(d);};
+    std::vector<Decl*> D;
+    void push(Decl* d){ D.push_back(d);};
 
-    bool inTable(std::string I){ int i=0; while(i<D.size()){if(D[i].id == I){return true; }}}
-    std::string findType(std::string I){ int i=0; while(i<D.size()){if(D[i].id == I){return D[i].type; }}}
+    bool inTable(std::string I){ int i=0; while(i<D.size()){if(D[i]->id == I){return true; }}}
+    std::string findType(std::string I){ int i=0; while(i<D.size()){if(D[i]->id == I){return D[i]->type; }}}
 };
 
 #endif //INC_125PROJ_SYMTAB_H
