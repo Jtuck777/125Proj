@@ -61,7 +61,7 @@ void linked_list::popEnd(){
     delete temp;
 };
 
-linked_list linked_list::split(int position){
+linked_list* linked_list::split(int position){
     Token* temp = head;
     int SZ = listSize();
     int pos = 0;
@@ -70,14 +70,14 @@ linked_list linked_list::split(int position){
         pos++;
         temp=temp->next;
     }
-    linked_list new_list;
-    if(position == 0){ new_list.head = head; new_list.tail = tail; tail = head = nullptr; }
+    linked_list* new_list = new linked_list();
+    if(position == 0){ new_list->head = head; new_list->tail = tail; tail = head = nullptr; }
     else {
-        new_list.head = temp;
-        new_list.tail = tail;
+        new_list->head = temp;
+        new_list->tail = tail;
         tail = temp->prev;
         tail->next = nullptr;
-        new_list.head->prev = nullptr;
+        new_list->head->prev = nullptr;
     }
     return new_list;
 

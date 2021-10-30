@@ -11,8 +11,8 @@ class andexpr;
 
 class allexpr   {
     //allexpr || andexpr | andexpr
-public: allexpr(linked_list list, SymTab* T, int D){sTable = T, Depth = D;LIST = list;}
-    linked_list LIST;
+public: allexpr(linked_list* list, SymTab* T, int D){sTable = T, Depth = D;LIST = list;}
+    linked_list* LIST;
     int Depth;
     SymTab* sTable;
     allexpr* AE1;
@@ -23,8 +23,8 @@ public: allexpr(linked_list list, SymTab* T, int D){sTable = T, Depth = D;LIST =
 class incdecexpr{
     // id++ | id--
 public:
-    incdecexpr(linked_list list, SymTab* T, int D){sTable = T, Depth = D;LIST = list;}
-    linked_list LIST;
+    incdecexpr(linked_list* list, SymTab* T, int D){sTable = T, Depth = D;LIST = list;}
+    linked_list* LIST;
     int Depth;
     SymTab* sTable;
     Token* ID;
@@ -35,8 +35,8 @@ public:
 class factor{
 public:
     //(allexpr) | incdecexpr | id | num | real | true | false
-    factor(linked_list list, SymTab* T, int D){sTable = T, Depth = D;LIST = list;}
-    linked_list LIST;
+    factor(linked_list* list, SymTab* T, int D){sTable = T, Depth = D;LIST = list;}
+    linked_list* LIST;
     int Depth;
     SymTab* sTable;
     allexpr* allExpression;
@@ -47,8 +47,8 @@ public:
 class term      {
     //term * factor | term / factor | factor
 public:
-    term(linked_list list, SymTab* T, int D){sTable = T, Depth = D; LIST = list;}
-    linked_list LIST;
+    term(linked_list* list, SymTab* T, int D){sTable = T, Depth = D; LIST = list;}
+    linked_list* LIST;
     int Depth;
     SymTab* sTable;
     term* T1;
@@ -59,8 +59,8 @@ public:
 class expr      {
     // expr + term | expr - term | term
 public:
-    expr(linked_list list, SymTab* T, int D){sTable = T, Depth = D;LIST = list;}
-    linked_list LIST;
+    expr(linked_list* list, SymTab* T, int D){sTable = T, Depth = D;LIST = list;}
+    linked_list* LIST;
     int Depth;
     SymTab* sTable;
     expr* E1;
@@ -71,8 +71,8 @@ public:
 class rel       {
     //expr<expr | expr<=expr | expr>expr | expr>=expr | expr
 public:
-    rel(linked_list list, SymTab* T, int D){sTable = T, Depth = D;LIST = list;}
-    linked_list LIST;
+    rel(linked_list* list, SymTab* T, int D){sTable = T, Depth = D;LIST = list;}
+    linked_list* LIST;
     int Depth;
     SymTab* sTable;
     expr* E1;
@@ -83,8 +83,8 @@ public:
 class EQ     {
     // equal==rel | equal != rel | rel
 public:
-    EQ(linked_list list, SymTab* T, int D){sTable = T, Depth = D;LIST = list;}
-    linked_list LIST;
+    EQ(linked_list* list, SymTab* T, int D){sTable = T, Depth = D;LIST = list;}
+    linked_list* LIST;
     int Depth;
     SymTab* sTable;
     EQ* E1;
@@ -96,8 +96,8 @@ public:
 class andexpr   {
     // andexpr && equal | equal
 public:
-    andexpr(linked_list list, SymTab* T, int D){sTable = T, Depth = D;LIST = list;}
-    linked_list LIST;
+    andexpr(linked_list* list, SymTab* T, int D){sTable = T, Depth = D;LIST = list;}
+    linked_list* LIST;
     int Depth;
     SymTab* sTable;
     andexpr* AE1;
@@ -107,8 +107,8 @@ public:
 class assign    {
     //id = allepr
 public:
-    assign(linked_list list, SymTab* T, int D){sTable = T, Depth = D;LIST = list;}
-    linked_list LIST;
+    assign(linked_list* list, SymTab* T, int D){sTable = T, Depth = D;LIST = list;}
+    linked_list* LIST;
     int Depth;
     SymTab* sTable;
     allexpr* allExpression;

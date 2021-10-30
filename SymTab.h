@@ -10,7 +10,8 @@ using namespace std;
 
 class SymTab{
 public:
-    SymTab();
+    SymTab(){ prev= nullptr;}
+    SymTab(SymTab* T){prev = T;}
     SymTab* prev;
     std::vector<Decl*> D;
     void push(Decl* d){ D.push_back(d);};

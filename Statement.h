@@ -12,8 +12,8 @@
 class Block;
 class Stmt{
 public:
-    Stmt(linked_list list, SymTab* T, int D){sTable = T; Depth = D; LIST = list; }
-    linked_list LIST;
+    Stmt(linked_list* list, SymTab* T, int D){sTable = T; Depth = D; LIST = list; }
+    linked_list* LIST;
     SymTab* sTable;
     int Depth;
     Stmt1* S1;

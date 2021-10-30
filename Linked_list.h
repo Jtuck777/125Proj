@@ -26,7 +26,7 @@ public:
     void push(string input, string Class);
     void pop();
     void popEnd();
-    linked_list split(int pos);
+    linked_list* split(int pos);
     linked_list* split_set(int position_1, int position_2);
     linked_list operator=(linked_list &rhs);
 };

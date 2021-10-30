@@ -12,39 +12,23 @@
 class Block{
     friend class linked_list;
 public:
-    Block(int D){Depth = D; Table = new SymTab();};
-    Block(int D, SymTab* T){Depth = D; Table = new SymTab(); Table->prev = T;}
-    std::vector<Stmt> St;
+    Block(int D, linked_list* List);
+    Block(int D, linked_list* List, SymTab* T);
+    std::vector<Stmt*> St;
     SymTab* Table;
+    linked_list* LIST;
     int Depth;
-    void Scan4Stmt_Decl(linked_list* List){
-        linked_list* T = List->split_set(1, List->listSize()-1);
-        Token* temp = T->head;
-        bool Ty, I, S;//Type, ID , Semicolon
-        string ty, ID, Semi;
-        for(int i=0;i<3; i++){
-            if(i==0 && temp->get_class()=="BASE_TYPE"){ Ty=true;ty=temp->get_data();}
-            if(i==1 && temp->get_class()=="id"){ I=true;ID=temp->get_data();}
-            if(i==2 && temp->get_class()==";"){ S=true;};
-            temp = temp->next;}
-        if(Ty && I && S){
-            T->pop();T->pop();T->pop();
-            Decl* TEMP = new Decl(ty,ID);
-            Table->push(TEMP);
-            Scan4Stmt_Decl(T);
-        }
-        else
-        {
-
-        }
-    };
+    void Scan4Stmt(linked_list* List);
+    Token* Scan4Decl(linked_list* List);
+    void StmtFound(linked_list* list, int POS);
     void printBlock();
 };
 
 class Prog{
 public:
-    Prog(){B= new Block(1);}
+    Prog(linked_list* LIST){List = LIST; B= new Block(0, List);}
     Block* B;
+    linked_list* List;
     int Depth = 0;
     void PrintProg();
 };
