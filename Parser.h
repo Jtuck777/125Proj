@@ -26,7 +26,11 @@ public:
 
 class Prog{
 public:
-    Prog(linked_list* LIST){List = LIST; B= new Block(0, List);}
+    Prog(linked_list* LIST){
+        List = LIST;
+        if(LIST->tail->get_class() == "EOF"){List->popEnd();}
+        B= new Block(0, List);
+    }
     Block* B;
     linked_list* List;
     int Depth = 0;
