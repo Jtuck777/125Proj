@@ -1,15 +1,12 @@
 //
 // Created by Jared Tuck on 10/24/2021.
 //
-#include "Lexer.h"
 #include "Parser.h"
 #include <vector>
 
 Block::Block(int D, linked_list* List){
     Depth = D; LIST = new linked_list(), Table = new SymTab();
     Scan4Stmt(LIST->split_set(1, LIST->listSize()-2));
-    //Chops off first and las bracket of block and EOF.
-
 }
 
 Block::Block(int D, linked_list* List, SymTab* T){

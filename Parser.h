@@ -2,6 +2,7 @@
 #define INC_125PROJ_PARSER_H
 #include <vector>
 #include "Lexer.h"
+#include "linked_list.h"
 #include "Statement.h"
 #include "SymTab.h"
 #include "Decl.h"
