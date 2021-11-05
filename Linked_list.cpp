@@ -86,7 +86,7 @@ linked_list* linked_list::split(int position){
 }
 
 linked_list* linked_list::split_set(int position_1, int position_2) {
-    Token* temp1; Token* temp2; temp2 = head;
+    Token* temp1; Token* temp2 = head;
     int temp;
     if(position_1 > position_2){temp = position_1; position_1= position_2; position_2 = temp; }
     int SZ = listSize();
