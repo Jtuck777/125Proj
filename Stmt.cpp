@@ -75,28 +75,33 @@ void Stmt3::ScanCls3()
 
 Stmt4::Stmt4(linked_list* list, SymTab* T, int D)
 {   cout<<"Stmt4 found"<<endl;
+    Token* temp = list->head;
+    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    cout<<endl;
     sTable = T, Depth = D, LIST=list;
     ScanCls4();
 };
 
 void Stmt4::ScanCls4()
-{
+{   //while (allexpr) stmt
     Token* temp=LIST->head->next->next;
-    int position=2; //index 2 starting
+    int pos=2; //index 2 starting
     int LP=1;
     int RP=0;
     SymTab* sTable;
     linked_list* ptr;
     linked_list* ptr2;
-    while(temp->next)
+    while(temp)
     {
-        if (temp->get_data()=="(") {RP++;}
+        if (temp->get_data()=="(") {LP++;}
         if (temp->get_data()==")") {RP++;}
-        if (LP==RP){ptr=LIST->split_set(2, position-1); break;} //removing allexpr from linked list
+        if (LP==RP){ptr=LIST->split_set(2, pos-1); break;} //removing allexpr from linked list
+        temp=temp->next;
+        pos++;
     }
     allExpression= new allexpr (ptr, sTable, Depth++);
     ptr2=LIST->split_set(3, LIST->listSize()-1); //accounting for end of the list
-    statement =new Stmt4 (ptr2, sTable, Depth++);
+    statement =new Stmt(ptr2, sTable, Depth++);
 }
 
 Stmt5::Stmt5(linked_list* list, SymTab* T, int D)
@@ -106,9 +111,9 @@ Stmt5::Stmt5(linked_list* list, SymTab* T, int D)
 };
 
 void Stmt5::ScanCls5()
-{
+{//do stmt while (allexpr) ;
     Token* temp=LIST->head->next->next;
-    int position=2; //index 2 starting
+    int pos=2; //index 2 starting
     int LP=1;
     int RP=0;
     SymTab* sTable;
@@ -122,16 +127,15 @@ void Stmt5::ScanCls5()
         stmtend++;
         temp = temp->next;
     }
-
     WHILE = temp;
-
     S1 = new Stmt(LIST->split_set(2,stmtend), sTable, Depth+1);
-
-    while(temp->next)
+    while(temp)
     {
-        if (temp->get_data()=="(") {RP++;}
+        if (temp->get_data()=="(") {LP++;}
         if (temp->get_data()==")") {RP++;}
-        if (LP==RP){ptr=LIST->split_set(2, position-1); break;} //removing allexpr from linked list
+        if (LP==RP){ptr=LIST->split_set(2, pos-1); break;} //removing allexpr from linked list
+        temp = temp->next;
+        pos++;
     }
     allExpression= new allexpr (ptr, sTable, Depth++);
 }
@@ -143,7 +147,7 @@ Stmt6::Stmt6(linked_list* list, SymTab* T, int D)
 };
 
 void Stmt6::ScanCls6()
-{
+{   //for (assign allexpr; incdecexpr)  stmt
     Token* temp=LIST->head->next->next;
     int position=2; //index 2 starting
     int LP=1;

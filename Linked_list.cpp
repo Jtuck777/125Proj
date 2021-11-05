@@ -73,7 +73,7 @@ linked_list* linked_list::split(int position){
         temp=temp->next;
     }
     linked_list* new_list = new linked_list();
-    if(position == 0){ new_list->head = head; new_list->tail = tail; tail = head = nullptr; }
+    if(position == 0){ new_list->head = head; new_list->tail = head; head = head->next; head->prev= nullptr; new_list->head->next= nullptr;}
     else {
         new_list->head = head;
         new_list->tail = temp;
@@ -103,12 +103,14 @@ linked_list* linked_list::split_set(int position_1, int position_2) {
             head=tail;
             head->prev= nullptr;
             new_list->head->next= nullptr;
+            return new_list;
         }else{
             new_list->head=tail;
             new_list->tail=tail;
             tail = head;
-            head->prev= nullptr;
-            new_list->head->next= nullptr;
+            head->next= nullptr;
+            new_list->head->prev= nullptr;
+            return new_list;
         }
 
     }
@@ -117,7 +119,7 @@ linked_list* linked_list::split_set(int position_1, int position_2) {
         temp2=temp2->next;
         pos++;
     }
-    if(position_1==position_2){temp1=temp2;}
+    if(position_1 == position_2){return split(position_1);}
     new_list->head = temp1;
     new_list->tail = temp2;
 

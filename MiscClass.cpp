@@ -9,12 +9,15 @@ using namespace std;
 //allexpr Functions
 allexpr::allexpr(linked_list* list, SymTab* T, int D)
 {   cout<<" ALLEXPR_CALLED "<<endl;
+    Token* temp = list->head;
+    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    cout<<endl;
     sTable = T, Depth = D; LIST = list;
     allexpScan();
 }
 void allexpr::allexpScan()
 //allexpr || andexpr | andexpr
-{   cout<<"ALLEXPR Listsize()="<<LIST->listSize()<<endl;
+{
     Token *temp = LIST -> head;
     bool inside = false;
     int rp = 0, lp = 0, rb = 0, lb = 0, pos = 0;
@@ -45,8 +48,11 @@ void allexpr::allexpScan()
 
 incdecexpr::incdecexpr(linked_list* list, SymTab* T, int D)
 {   cout<<" INCDEC_EXPRES_CALLED "<<endl;
+    Token* temp = list->head;
+    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    cout<<endl;
     sTable = T, Depth = D;LIST = list;
-    Token* temp = LIST -> head;
+    temp = LIST -> head;
     ID = temp ->get_data();
     temp = temp -> next;
     s1 = temp->get_data();
@@ -56,6 +62,9 @@ incdecexpr::incdecexpr(linked_list* list, SymTab* T, int D)
 //factor functions
 factor::factor(linked_list* list, SymTab* T, int D)
 {   cout<<" FACTOR CALLED "<<endl;
+    Token* temp = list->head;
+    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    cout<<endl;
     sTable = T, Depth = D;LIST = list;
     scan();
 }
@@ -82,6 +91,9 @@ void factor::scan()
 //Term Function
 term::term(linked_list* list, SymTab* T, int D)
 {   cout<<" TERM_CALLED "<<endl;
+    Token* temp = list->head;
+    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    cout<<endl;
     sTable = T, Depth = D; LIST = list;
     termScan();
 
@@ -123,6 +135,9 @@ void term::termScan()
 //Expr Function
 expr::expr(linked_list* list, SymTab* T, int D)
 {   cout<<" EXPR_CALLED "<<endl;
+    Token* temp = list->head;
+    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    cout<<endl;
     sTable = T, Depth = D;LIST = list;
     exprScan();}
 
@@ -155,7 +170,8 @@ void expr::exprScan()
             T1 = new term(temp4, sTable, Depth + 1);
             break;
         }
-        pos++;temp=temp->next;
+        pos++;
+        temp=temp->next;
         if(!temp){T1 = new term(LIST, sTable, Depth + 1);}
     }
 }
@@ -163,6 +179,9 @@ void expr::exprScan()
 //rel Function
 rel::rel(linked_list* list, SymTab* T, int D)
 {   cout<<" REL_CALLED "<<endl;
+    Token* temp = list->head;
+    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    cout<<endl;
     sTable = T, Depth = D; LIST = list;
     relScan();
 }
@@ -174,7 +193,7 @@ void rel::relScan()
     int rp = 0, lp = 0, rb = 0, lb = 0, pos = 0;
     while(temp)
     {
-        if (temp -> get_data() == "(")   rp++;
+        if (temp -> get_data() == "(")  rp++;
         if (temp ->get_data() == ")")   lp++;
         if (temp ->get_data() == "{")   rb++;
         if (temp ->get_data() == "}")   lb++;
@@ -193,18 +212,21 @@ void rel::relScan()
             linked_list* temp3 = LIST -> split_set(0, pos - 1);
             linked_list* temp4 = LIST -> split_set(1, LIST->listSize() - 1);
             E1 = new expr(temp3, sTable, Depth + 1);
-            T1 = new expr(temp4, sTable, Depth + 1);
+            E2 = new expr(temp4, sTable, Depth + 1);
             break;
         }
         pos++;
         temp=temp->next;
-        if(!temp){ T1 = new expr(LIST, sTable, Depth + 1);}
+        if(!temp){ E1 = new expr(LIST, sTable, Depth + 1);}
     }
 
 
 }
 EQ::EQ(linked_list* list, SymTab* T, int D)
 {   cout<<" EQ_CALLED "<<endl;
+    Token* temp = list->head;
+    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    cout<<endl;
     sTable = T, Depth = D; LIST = list;
     EqScan();
 }
@@ -214,6 +236,10 @@ void EQ::EqScan()
     Token *temp = LIST -> head;
     bool inside;
     int rp = 0, lp = 0, rb = 0, lb = 0, pos = 0;
+   /* cout<<endl;
+    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    cout<<endl;
+    temp=LIST->head;*/
     while(temp)
     {
         if (temp ->get_data() == "(")   rp++;
@@ -245,6 +271,9 @@ void EQ::EqScan()
 }
 andexpr::andexpr(linked_list* list, SymTab* T, int D)
 {   cout<<" ANDEXPR_CALLED "<<endl;
+    Token* temp = list->head;
+    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    cout<<endl;
     sTable = T, Depth = D;LIST = list;
     andScan();
 }
@@ -281,12 +310,16 @@ void andexpr::andScan()
 }
 assign::assign(linked_list* list, SymTab* T, int D)
 {   cout<<" ASSIGN_CALLED "<<endl;
+    Token* temp = list->head;
+    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    cout<<endl;
     sTable = T, Depth = D;LIST = list;
 }
 void assign::assignScan()
 //id = allepr
 {
     Token* temp = LIST -> head;
+
     ID = temp -> get_data();
     linked_list* temp2 = LIST -> split_set(2, LIST -> listSize() - 1);
     if(temp -> get_class() == "=") allExpression = new allexpr(temp2, sTable, Depth + 1);

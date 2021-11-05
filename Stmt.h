@@ -64,7 +64,7 @@ public:
     int Depth;
     SymTab* sTable;
     string While = "WHILE";
-    Stmt4* statement;
+    Stmt* statement;
     allexpr* allExpression;
     linked_list* LIST;
     // void printStmt4(linked_list* list, SymTab* T, int D);

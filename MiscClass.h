@@ -82,7 +82,7 @@ public:
     SymTab* sTable;
     expr* E1;
     string Sym;
-    expr* T1;
+    expr* E2;
     void PrintRel(linked_list* list, SymTab* T, int D);
     void relScan();
 };

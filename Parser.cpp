@@ -9,13 +9,11 @@ void Parser::PrintTree(){std::cout<<"Print Tree";};
 
 Block::Block(int D, linked_list* List){
     Depth = D; LIST=List; Table = new SymTab();
-
-    cout<<"Flag3"<<endl;
     Scan4Stmt(LIST->split_set(1, LIST->listSize()-2));
 }
 
 Block::Block(int D, linked_list* List, SymTab* T){
-    cout<<List->listSize()<<endl;
+    cout<<"Block_Called"<<endl;
     Depth = D;
     LIST=List->split_set(1, List->listSize()-2);
     Table = new SymTab();
@@ -26,7 +24,8 @@ Block::Block(int D, linked_list* List, SymTab* T){
 
 void Block::StmtFound(linked_list* List, int POS){
     linked_list* B;
-    if(POS != List->listSize()-1){B = List->split(POS);}else{B=List;}
+    B = List->split(POS);
+    //if(POS != List->listSize()-1){B = List->split(POS);}else{B=List;}
     Stmt* S = new Stmt(B, Table, Depth+1);
     St.push_back(S);
 }
@@ -88,9 +87,6 @@ void Block::Scan4Stmt(linked_list* List){
         else//^^^If next next is a "for" then it signifies beginning of new stnt  therefore end of stmt found.
         {pos++;temp=temp->next;}
         //^^^ Nothing Found keep scanning
-
         }
         if(List->head && B_EQ){StmtFound(List, List->listSize()-1);}else{/*error state*/}
-    cout<<"Flag6"<<endl;
-
 }
