@@ -11,7 +11,7 @@ public:
     linked_list* List;
     Lexer();
     ~Lexer();
-    int bookmark = 0;
+    Token* nxtTok;
     Token getNextToken();
     bool isTokenL1(string T, char N);
     bool isTokenL2(string input, char N);

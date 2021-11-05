@@ -1,6 +1,7 @@
 #ifndef INC_125PROJ_PARSER_H
 #define INC_125PROJ_PARSER_H
 #include <vector>
+#include <iostream>
 #include "Lexer.h"
 #include "linked_list.h"
 #include "Statement.h"
@@ -29,7 +30,7 @@ class Prog{
 public:
     Prog(linked_list* LIST){
         List = LIST;
-        if(LIST->tail->get_class() == "EOF"){List->popEnd();}
+        if(List->tail->get_class() == "EOF"){List->popEnd();}
         B= new Block(0, List);
     }
     Block* B;
@@ -40,8 +41,9 @@ public:
 
 class Parser{
 public:
-    Parser(Lexer* L){Lex=L; Data = Lex->List;};
+    Parser(Lexer* L);
     Lexer* Lex;
+    Prog* P;
     linked_list* Data;
     void PrintTree();
 

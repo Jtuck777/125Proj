@@ -2,6 +2,7 @@
 // Created by Jared Tuck on 10/24/2021.
 //
 #include <string>
+#include <iostream>
 #include "Linked_list.h"
 using namespace std;
 ////////////////////Linked List Functions///////////////////////////////////////
@@ -58,6 +59,7 @@ void linked_list::popEnd(){
     string tok;
     Token* temp =tail;
     tail= temp->prev;
+    tail->next= nullptr;
     delete temp;
 };
 
@@ -65,7 +67,7 @@ linked_list* linked_list::split(int position){
     Token* temp = head;
     int SZ = listSize();
     int pos = 0;
-    if(position >= SZ){throw 1;}
+    if(position >= SZ){cout<<"Split Error"; throw 1;}
     while(pos< position){
         pos++;
         temp=temp->next;
@@ -73,11 +75,11 @@ linked_list* linked_list::split(int position){
     linked_list* new_list = new linked_list();
     if(position == 0){ new_list->head = head; new_list->tail = tail; tail = head = nullptr; }
     else {
-        new_list->head = temp;
-        new_list->tail = tail;
-        tail = temp->prev;
-        tail->next = nullptr;
-        new_list->head->prev = nullptr;
+        new_list->head = head;
+        new_list->tail = temp;
+        head = temp->next;
+        head->prev= nullptr;
+        new_list->tail->next= nullptr;
     }
     return new_list;
 
@@ -88,14 +90,34 @@ linked_list* linked_list::split_set(int position_1, int position_2) {
     int temp;
     if(position_1 > position_2){temp = position_1; position_1= position_2; position_2 = temp; }
     int SZ = listSize();
+    if(SZ==1){return this;}
+
+    if(position_1==0 && position_2 == SZ-1){return this;}
     int pos = 0;
     if(position_1 >= SZ || position_2 >= SZ){throw 1;}
     linked_list* new_list = new linked_list();
+    if(SZ==2 && position_2==position_1){
+        if(position_1==0){
+            new_list->head=head;
+            new_list->tail=head;
+            head=tail;
+            head->prev= nullptr;
+            new_list->head->next= nullptr;
+        }else{
+            new_list->head=tail;
+            new_list->tail=tail;
+            tail = head;
+            head->prev= nullptr;
+            new_list->head->next= nullptr;
+        }
+
+    }
     while(pos < position_2){
         if(pos == position_1){temp1 = temp2;}
         temp2=temp2->next;
         pos++;
     }
+    if(position_1==position_2){temp1=temp2;}
     new_list->head = temp1;
     new_list->tail = temp2;
 

@@ -2,47 +2,49 @@
 // Created by Jared Tuck on 10/24/2021.
 //
 #include <string>
+#include <iostream>
 #include "MiscClass.h"
 using namespace std;
 
 //allexpr Functions
 allexpr::allexpr(linked_list* list, SymTab* T, int D)
-{
-    sTable = T, Depth = D;LIST = list;
+{   cout<<" ALLEXPR_CALLED "<<endl;
+    sTable = T, Depth = D; LIST = list;
     allexpScan();
 }
 void allexpr::allexpScan()
 //allexpr || andexpr | andexpr
-{
+{   cout<<"ALLEXPR Listsize()="<<LIST->listSize()<<endl;
     Token *temp = LIST -> head;
-    bool inside;
+    bool inside = false;
     int rp = 0, lp = 0, rb = 0, lb = 0, pos = 0;
-    while(temp -> next)
-    {
-        if (temp -> get_data() == "(")   rp++;
-        if (temp ->get_data() == ")")   lp++;
-        if (temp ->get_data() == "{")   rb++;
-        if (temp ->get_data() == "}")   lb++;
+    if(LIST->listSize()==1){AE2 = new andexpr(LIST, sTable, Depth + 1);}else {
+        while (temp) {
+            if (temp->get_data() == "(") rp++;
+            if (temp->get_data() == ")") lp++;
+            if (temp->get_data() == "{") rb++;
+            if (temp->get_data() == "}") lb++;
 
-        if( (rp != lp) || (rb != lb))   inside = true;
-        else inside = false;
+            if ((rp != lp) || (rb != lb)) inside = true;
+            else inside = false;
 
-        if(!inside && temp->get_class() == "OR")
-        {
-            linked_list* temp3 = LIST -> split_set(0, pos - 1);
-            linked_list* temp4 = LIST -> split_set(1, LIST->listSize() - 1);
-            AE1 = new allexpr(temp3, sTable, Depth + 1);
-            AE2 = new andexpr(temp4, sTable, Depth + 1);
-            break;
+            if (!inside && temp->get_class() == "OR") {
+                linked_list *temp3 = LIST->split_set(0, pos - 1);
+                linked_list *temp4 = LIST->split_set(1, LIST->listSize() - 1);
+                AE1 = new allexpr(temp3, sTable, Depth + 1);
+                AE2 = new andexpr(temp4, sTable, Depth + 1);
+                break;
+            }
+            pos++;
+            temp = temp->next;
+            if (!temp){ AE2 = new andexpr(LIST, sTable, Depth + 1);}
         }
-        pos++;
 
     }
-    if(LIST -> listSize() > 1)  AE2 = new andexpr(LIST, sTable, Depth + 1);
 }
 
 incdecexpr::incdecexpr(linked_list* list, SymTab* T, int D)
-{
+{   cout<<" INCDEC_EXPRES_CALLED "<<endl;
     sTable = T, Depth = D;LIST = list;
     Token* temp = LIST -> head;
     ID = temp ->get_data();
@@ -53,7 +55,7 @@ incdecexpr::incdecexpr(linked_list* list, SymTab* T, int D)
 }
 //factor functions
 factor::factor(linked_list* list, SymTab* T, int D)
-{
+{   cout<<" FACTOR CALLED "<<endl;
     sTable = T, Depth = D;LIST = list;
     scan();
 }
@@ -63,7 +65,7 @@ void factor::scan()
     Token* temp = LIST -> head;
     if(temp -> get_data() == "(")
     {
-        linked_list* temp2 = LIST -> split_set(0, LIST->listSize()-1);
+        linked_list* temp2 = LIST -> split_set(1, LIST->listSize()-2);
         allExpression = new allexpr(temp2, sTable, Depth + 1);
     }
     else if(LIST ->listSize() > 1)
@@ -73,12 +75,13 @@ void factor::scan()
     else
     {
         tok = temp->get_class();
+        cout<<"Found Terminal "<<tok<<endl;
     }
 }
 
 //Term Function
 term::term(linked_list* list, SymTab* T, int D)
-{
+{   cout<<" TERM_CALLED "<<endl;
     sTable = T, Depth = D; LIST = list;
     termScan();
 
@@ -89,7 +92,7 @@ void term::termScan()
     Token* temp = LIST -> head;
     bool inside;
     int rp = 0, lp = 0, rb = 0, lb = 0, pos = 0;
-    while(temp -> next)
+    while(temp)
     {
         if (temp -> get_data() == "(")   rp++;
         if (temp ->get_data() == ")")   lp++;
@@ -111,14 +114,16 @@ void term::termScan()
             F1 = new factor(temp4, sTable, Depth + 1);
             break;
         }
-        pos++;
+        pos++;temp=temp->next;
+        if(!temp){F1 = new factor(LIST, sTable, Depth + 1);}
     }
-    if(LIST -> listSize() > 1) F1 = new factor(LIST, sTable, Depth + 1);
+
 }
 
 //Expr Function
 expr::expr(linked_list* list, SymTab* T, int D)
-{   sTable = T, Depth = D;LIST = list;
+{   cout<<" EXPR_CALLED "<<endl;
+    sTable = T, Depth = D;LIST = list;
     exprScan();}
 
 void expr::exprScan()
@@ -127,7 +132,7 @@ void expr::exprScan()
     Token *temp = LIST -> head;
     bool inside;
     int rp = 0, lp = 0, rb = 0, lb = 0, pos = 0;
-    while(temp -> next)
+    while(temp)
     {
         if (temp -> get_data() == "(")   rp++;
         if (temp ->get_data() == ")")   lp++;
@@ -150,15 +155,14 @@ void expr::exprScan()
             T1 = new term(temp4, sTable, Depth + 1);
             break;
         }
-        pos++;
+        pos++;temp=temp->next;
+        if(!temp){T1 = new term(LIST, sTable, Depth + 1);}
     }
-
-    if(LIST -> listSize() > 1)  T1 = new term(LIST, sTable, Depth + 1);
 }
 
 //rel Function
 rel::rel(linked_list* list, SymTab* T, int D)
-{
+{   cout<<" REL_CALLED "<<endl;
     sTable = T, Depth = D; LIST = list;
     relScan();
 }
@@ -168,7 +172,7 @@ void rel::relScan()
     Token *temp = LIST -> head;
     bool inside;
     int rp = 0, lp = 0, rb = 0, lb = 0, pos = 0;
-    while(temp -> next)
+    while(temp)
     {
         if (temp -> get_data() == "(")   rp++;
         if (temp ->get_data() == ")")   lp++;
@@ -193,12 +197,14 @@ void rel::relScan()
             break;
         }
         pos++;
+        temp=temp->next;
+        if(!temp){ T1 = new expr(LIST, sTable, Depth + 1);}
     }
 
-    if(LIST -> listSize() > 1) T1 = new expr(LIST, sTable, Depth + 1);
+
 }
 EQ::EQ(linked_list* list, SymTab* T, int D)
-{
+{   cout<<" EQ_CALLED "<<endl;
     sTable = T, Depth = D; LIST = list;
     EqScan();
 }
@@ -208,7 +214,7 @@ void EQ::EqScan()
     Token *temp = LIST -> head;
     bool inside;
     int rp = 0, lp = 0, rb = 0, lb = 0, pos = 0;
-    while(temp -> next)
+    while(temp)
     {
         if (temp ->get_data() == "(")   rp++;
         if (temp ->get_data() == ")")   lp++;
@@ -231,12 +237,14 @@ void EQ::EqScan()
             break;
         }
         pos++;
+        temp=temp->next;
+        if(!temp){ R1 = new rel(LIST, sTable, Depth + 1);}
     }
 
-    if(LIST -> listSize() > 1) R1 = new rel(LIST, sTable, Depth + 1);
+
 }
 andexpr::andexpr(linked_list* list, SymTab* T, int D)
-{
+{   cout<<" ANDEXPR_CALLED "<<endl;
     sTable = T, Depth = D;LIST = list;
     andScan();
 }
@@ -247,7 +255,7 @@ void andexpr::andScan()
     Token *temp = LIST -> head;
     bool inside;
     int rp = 0, lp = 0, rb = 0, lb = 0, pos = 0;
-    while(temp -> next)
+    while(temp)
     {
         if (temp -> get_data() == "(")   rp++;
         if (temp ->get_data() == ")")   lp++;
@@ -266,13 +274,13 @@ void andexpr::andScan()
             E1 = new EQ(temp4, sTable, Depth + 1);
             break;
         }
+        temp=temp->next;
         pos++;
+        if(!temp){ E1 = new EQ(LIST, sTable, Depth + 1);}
     }
-
-    if(LIST -> listSize() > 1) E1 = new EQ(LIST, sTable, Depth + 1);
 }
 assign::assign(linked_list* list, SymTab* T, int D)
-{
+{   cout<<" ASSIGN_CALLED "<<endl;
     sTable = T, Depth = D;LIST = list;
 }
 void assign::assignScan()
