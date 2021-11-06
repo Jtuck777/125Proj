@@ -20,7 +20,9 @@ linked_list::~linked_list(){
     tail = NULL;
 }
 
-bool linked_list::isEmpty(){return (head == NULL);}
+bool linked_list::isEmpty(){
+    return ( head == NULL
+            );}
 
 int linked_list::listSize(){
     Token* temp = head;

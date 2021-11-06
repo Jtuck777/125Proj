@@ -8,7 +8,6 @@ CMakeFiles/125Proj.dir/Lexer.cpp.obj: ../Linked_list.h
 CMakeFiles/125Proj.dir/Linked_list.cpp.obj: ../Linked_list.cpp
 CMakeFiles/125Proj.dir/Linked_list.cpp.obj: ../Linked_list.h
 
-CMakeFiles/125Proj.dir/MiscClass.cpp.obj: ../Decl.h
 CMakeFiles/125Proj.dir/MiscClass.cpp.obj: ../Linked_list.h
 CMakeFiles/125Proj.dir/MiscClass.cpp.obj: ../MiscClass.cpp
 CMakeFiles/125Proj.dir/MiscClass.cpp.obj: ../MiscClass.h
@@ -34,7 +33,6 @@ CMakeFiles/125Proj.dir/Stmt.cpp.obj: ../Stmt.cpp
 CMakeFiles/125Proj.dir/Stmt.cpp.obj: ../Stmt.h
 CMakeFiles/125Proj.dir/Stmt.cpp.obj: ../SymTab.h
 
-CMakeFiles/125Proj.dir/SymTab.cpp.obj: ../Decl.h
 CMakeFiles/125Proj.dir/SymTab.cpp.obj: ../Linked_list.h
 CMakeFiles/125Proj.dir/SymTab.cpp.obj: ../SymTab.cpp
 CMakeFiles/125Proj.dir/SymTab.cpp.obj: ../SymTab.h

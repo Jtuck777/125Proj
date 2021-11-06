@@ -89,6 +89,7 @@ void factor::scan()
     else if(LIST ->listSize()>1){IncDec = new incdecexpr(LIST, sTable, Depth); }
     else{
         tok = temp->get_data();
+        if(temp->get_class()=="ID"){if(!sTable->inTable(tok)){cout<<"ERROR";}}
         cout<<"Found Terminal "<<tok<<endl;
     }
 }

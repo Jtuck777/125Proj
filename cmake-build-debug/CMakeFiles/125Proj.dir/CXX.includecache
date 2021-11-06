@@ -6,23 +6,27 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/Jared Tuck/CLionProjects/125Proj/Decl.h
-
 C:/Users/Jared Tuck/CLionProjects/125Proj/Linked_list.h
 string
 -
 
-C:/Users/Jared Tuck/CLionProjects/125Proj/SymTab.cpp
-SymTab.h
-C:/Users/Jared Tuck/CLionProjects/125Proj/SymTab.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/MiscClass.cpp
+string
+-
+iostream
+-
+MiscClass.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/MiscClass.h
+
+C:/Users/Jared Tuck/CLionProjects/125Proj/MiscClass.h
 linked_list.h
 C:/Users/Jared Tuck/CLionProjects/125Proj/Linked_list.h
+SymTab.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/SymTab.h
 
 C:/Users/Jared Tuck/CLionProjects/125Proj/SymTab.h
 iostream
 -
-Decl.h
-C:/Users/Jared Tuck/CLionProjects/125Proj/Decl.h
 linked_list.h
 C:/Users/Jared Tuck/CLionProjects/125Proj/Linked_list.h
 string

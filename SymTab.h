@@ -5,7 +5,6 @@
 #ifndef INC_125PROJ_SYMTAB_H
 #define INC_125PROJ_SYMTAB_H
 #include <iostream>
-#include "Decl.h"
 #include "linked_list.h"
 #include "string"
 using namespace std;
@@ -14,8 +13,8 @@ class SymTab{
 public:
     SymTab();
     SymTab(SymTab* T);
-    SymTab* prev;
-    linked_list* S;
+    SymTab* prev= nullptr;
+    linked_list* S = nullptr;
     void push(string ID, string Type);
     bool inTable(string I);
     std::string findType(string I);

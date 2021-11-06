@@ -1,4 +1,3 @@
-
 {
 int r; int dd; int a; int d;
 r = a; dd = d;
