@@ -13,8 +13,9 @@ class SymTab{
 public:
     SymTab();
     SymTab(SymTab* T);
-    SymTab* prev= nullptr;
-    linked_list* S = nullptr;
+    SymTab* prev;
+    linked_list* S;
+    int SZ=0;
     void push(string ID, string Type);
     bool inTable(string I);
     std::string findType(string I);

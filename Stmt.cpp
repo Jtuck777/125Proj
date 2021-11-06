@@ -10,10 +10,10 @@ Stmt1::Stmt1(linked_list* list, SymTab* T, int D) //constructor
     ScanCls1();
 }
 void Stmt1::ScanCls1(){ //Assign => id = allexpr;
+    typeCheck();
     Token* temp = LIST->head;
     ID=temp->get_data();
-    string T1 = temp->get_data();
-    if(!sTable->inTable(T1)){cout<<"ERROR";}
+    if(!sTable->inTable(ID)){cout<<"Undeclared ID ERROR on line "<<temp->get_LN()<<endl;}
     linked_list* AE = LIST->split_set(2, LIST->listSize()-2);
     AE->Print();
     allExpression = new allexpr(AE, sTable, Depth);
@@ -25,7 +25,46 @@ void Stmt1::printStmt1(){
     cout<<"+--Token "<<ID<<endl;
     allExpression->printAllexpr();
 }
-
+void Stmt1::typeCheck() {
+    Token *temp = LIST->head;
+    string TYPE;
+    bool TypeFound = false;
+    while (temp) {
+        if (temp->get_class() == "ID" && !sTable->inTable(temp->get_data())) {
+            cout << "SCOPE ERROR on line " << temp->get_LN() << ", ID '" << temp->get_data() << "' is UN-INITILIZED."
+                 << endl;
+            exit(1);
+        }
+        if (!TypeFound && temp->get_class() == "ID") {
+            TypeFound = true;
+            TYPE = sTable->findType(temp->get_data());
+        } else if (TypeFound && temp->get_class() == "ID") {
+            if (sTable->findType(temp->get_data()) != TYPE) {
+                cout << "TYPE ERROR on line " << temp->get_LN() << ", ID '" << temp->get_data()
+                     << " is not compatible with type "<<TYPE<< endl;
+                exit(1);
+            }
+        }else
+        if(TypeFound){
+            if(temp->get_class()=="NUM" && TYPE != "int"){
+                cout << "TYPE ERROR on line " << temp->get_LN() << ", Token " << temp->get_data()
+                     << " is not compatible with type "<<TYPE<< endl;
+                exit(1);
+            }
+            if(temp->get_class()=="REAL" && TYPE != "float"){
+                cout << "TYPE ERROR on line " << temp->get_LN() << ", Token " << temp->get_data()
+                     << " is not compatible with type "<<TYPE<< endl;
+                exit(1);
+            }
+            if((temp->get_class()=="false"||temp->get_class()=="true"||temp->get_class()=="bool") && TYPE != "bool"){
+                cout << "TYPE ERROR on line " << temp->get_LN() << ", Token " << temp->get_data()
+                     << " is not compatible with type "<<TYPE<< endl;
+                exit(1);
+            }
+        }
+        temp = temp->next;
+    }
+}
 Stmt2::Stmt2(linked_list* list, SymTab* T, int D){
     //if (allexpr) stmt
     cout<<"Stmt2 found"<<endl;
@@ -45,7 +84,6 @@ void Stmt2::ScanCls2(){
         if (temp->get_data()==")") {RP++;}
         if (LP==RP){ptr=LIST->split_set(2, position-1); break;} //removing allexpr from linked list
     }
-    cout<<ptr->listSize()<<endl;
     allExpression= new allexpr (ptr, sTable, Depth);
     ptr2=LIST->split_set(3, LIST->listSize()-1); //accounting for end of the list
     statement =new Stmt (ptr2, sTable, Depth);
@@ -69,7 +107,6 @@ void Stmt3::ScanCls3(){
     int position=2; //index 2 starting
     int LP=1;
     int RP=0;
-    SymTab* sTable;
     linked_list* ptr;
     linked_list* ptr2;
     linked_list* ptr3;
@@ -109,7 +146,6 @@ void Stmt4::ScanCls4()
     int pos=2; //index 2 starting
     int LP=1;
     int RP=0;
-    SymTab* sTable;
     linked_list* ptr;
     linked_list* ptr2;
     while(temp){
@@ -142,7 +178,6 @@ void Stmt5::ScanCls5()
     int pos=2; //index 2 starting
     int LP=1;
     int RP=0;
-    SymTab* sTable;
     linked_list* ptr;
     int stmtend = 1;
     DO = LIST->head;
@@ -182,7 +217,6 @@ void Stmt6::ScanCls6()
     int position=2; //index 2 starting
     int LP=1;
     int RP=0;
-    SymTab* sTable;
     linked_list* ptr;
     linked_list* ptr2;
     linked_list* ptr3;

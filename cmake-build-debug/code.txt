@@ -1,5 +1,16 @@
+{{
+   bool a;
+   {
+      float a;
+      a = 1.6;
+   }
+   {
+      a = 1.6;
+   }
+}
 {
-int r; int dd; int a; int d;
+int r; bool dd; int a; int d;
 r = a; dd = d;
 while( dd <= r ) dd = 2*dd;
+}
 }

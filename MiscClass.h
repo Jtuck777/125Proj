@@ -100,6 +100,7 @@ public:
     EQ* E1= nullptr;
     string Sym;
     rel* R1= nullptr;
+    void typeCheck();
     void printEq();
     void EqScan();
 };

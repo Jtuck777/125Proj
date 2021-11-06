@@ -22,6 +22,7 @@ public:
     linked_list* LIST; //pointer to object
     void ScanCls1();
     void printStmt1();
+    void typeCheck();
 };
 
 

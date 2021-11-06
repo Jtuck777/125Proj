@@ -54,9 +54,10 @@ incdecexpr::incdecexpr(linked_list* list, SymTab* T, int D)
     Token* temp = list->head;
     while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
     cout<<endl;
-    sTable = T, Depth = D;LIST = list;
+    sTable = T; Depth = D;LIST = list;
     temp = LIST -> head;
     ID = temp ->get_data();
+    if(!sTable->inTable(ID)){cout<<"ERROR on line "<<temp->get_LN()<<endl;}
     temp = temp -> next;
     s1 = temp->get_data();
     s2 = temp ->next ->get_data();
@@ -89,7 +90,9 @@ void factor::scan()
     else if(LIST ->listSize()>1){IncDec = new incdecexpr(LIST, sTable, Depth); }
     else{
         tok = temp->get_data();
-        if(temp->get_class()=="ID"){if(!sTable->inTable(tok)){cout<<"ERROR";}}
+        if(temp->get_class()=="ID"){
+            if(!sTable->inTable(tok)){
+                cout<<"SCOPE ERROR on line "<<temp->get_LN()<<", ID '"<<temp->get_data()<<"' is UN-INITILIZED."<<endl; exit(1);}}
         cout<<"Found Terminal "<<tok<<endl;
     }
 }
@@ -254,6 +257,7 @@ EQ::EQ(linked_list* list, SymTab* T, int D)
 }
 void EQ::EqScan(){
 // equal==rel | equal != rel | rel
+    typeCheck();
     Token *temp = LIST -> head;
     bool inside;
     int rp = 0, lp = 0, rb = 0, lb = 0, pos = 0;
@@ -287,6 +291,27 @@ void EQ::EqScan(){
         if(!temp){ R1 = new rel(LIST, sTable, Depth);}
     }
 }
+void EQ::typeCheck() {
+    Token* temp = LIST->head;
+    string TYPE;
+    bool TypeFound = false;
+    while(temp){
+        if(temp->get_class()=="ID" && !sTable->inTable(temp->get_data())){
+        cout<<"SCOPE ERROR on line "<<temp->get_LN()<<", ID '"<<temp->get_data()<<"' is UN-INITILIZED."<<endl; exit(1);}
+        if(!TypeFound && temp->get_class() == "ID") {
+            TypeFound=true;
+            TYPE = sTable->findType(temp->get_data());
+        }else
+        if(temp->get_class() == "ID"){
+            if(sTable->findType(temp->get_data()) != TYPE){
+                cout<<"TYPE ERROR on line "<<temp->get_LN()<<", ID '"<<temp->get_data()<<"' is not compatible with type "<<TYPE<<endl; exit(1);
+            }
+        }
+        temp=temp->next;
+    }
+
+}
+
 void EQ::printEq(){
     if(E1){
         for(int i=0; i<=Depth; i++){cout<<"| "; }
