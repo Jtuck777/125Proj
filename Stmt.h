@@ -21,6 +21,7 @@ public:
     allexpr* allExpression; //pointer to object
     linked_list* LIST; //pointer to object
     void ScanCls1();
+    void printStmt1();
 };
 
 
@@ -36,7 +37,7 @@ public:
     Stmt* statement;
     linked_list* LIST;
     void ScanCls2();
-    //void printStmt2(linked_list* list, SymTab* T, int D);
+    void printStmt2();
 };
 
 
@@ -54,6 +55,7 @@ public:
     Stmt3* S2;
     linked_list* LIST;
     void ScanCls3();
+    void printStmt3();
 };
 
 ////////////////////////////////////////////////////////////////////
@@ -67,7 +69,7 @@ public:
     Stmt* statement;
     allexpr* allExpression;
     linked_list* LIST;
-    // void printStmt4(linked_list* list, SymTab* T, int D);
+    void printStmt4();
     void ScanCls4();
 };
 
@@ -83,6 +85,7 @@ public:
     Token* WHILE;
     allexpr* allExpression;
     void ScanCls5();
+    void printStmt5();
 };
 
 
@@ -97,11 +100,12 @@ public:
     int Depth;
     SymTab* sTable;
     Token* FOR;
-    assign* A1;
+    Stmt1* A1;
     incdecexpr* IncD;
     allexpr* allExpression;
     Stmt* S1;
     void ScanCls6();
+    void printStmt6();
 };
 
 

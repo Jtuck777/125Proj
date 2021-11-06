@@ -7,6 +7,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/125Proj.dir/MiscClass.cpp.obj"
   "CMakeFiles/125Proj.dir/Parser.cpp.obj"
   "CMakeFiles/125Proj.dir/Stmt.cpp.obj"
+  "CMakeFiles/125Proj.dir/SymTab.cpp.obj"
   "CMakeFiles/125Proj.dir/main.cpp.obj"
   "lib125Proj.dll.a"
 )

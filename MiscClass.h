@@ -14,9 +14,10 @@ public:
     linked_list* LIST;
     int Depth;
     SymTab* sTable;
-    allexpr* AE1;
-    andexpr* AE2;
+    allexpr* AE1= nullptr;
+    andexpr* AE2= nullptr;
     void allexpScan();  //scans linkedlist to find allexp seg
+    void printAllexpr();
 };
 
 
@@ -29,6 +30,7 @@ public:
     SymTab* sTable;
     string ID;
     string s1, s2;
+    void printIncDecEx();
 };
 
 
@@ -39,10 +41,11 @@ public:
     linked_list* LIST;
     int Depth;
     SymTab* sTable;
-    allexpr* allExpression;
-    incdecexpr* IncDec;
+    allexpr* allExpression= nullptr;
+    incdecexpr* IncDec= nullptr;
     string tok;
     void scan();
+    void printFact();
 };
 
 class term{
@@ -52,10 +55,11 @@ public:
     linked_list* LIST;
     int Depth;
     SymTab* sTable;
-    term* T1;
-    Token* Sym;
-    factor* F1;
+    term* T1= nullptr;
+    string tok;
+    factor* F1= nullptr;
     void termScan();
+    void printTerm();
 };
 
 class expr      {
@@ -65,13 +69,12 @@ public:
     linked_list* LIST;
     int Depth;
     SymTab* sTable;
-    expr* E1;
-    Token* Sym;
-    term* T1;
+    expr* E1= nullptr;
+    string tok;
+    term* T1= nullptr;
     void exprScan();
+    void printExpr();
 };
-
-
 
 class rel       {
     //expr<expr | expr<=expr | expr>expr | expr>=expr | expr
@@ -80,10 +83,10 @@ public:
     linked_list* LIST;
     int Depth;
     SymTab* sTable;
-    expr* E1;
-    string Sym;
-    expr* E2;
-    void PrintRel(linked_list* list, SymTab* T, int D);
+    expr* E1= nullptr;
+    string tok;
+    expr* E2= nullptr;
+    void printRel();
     void relScan();
 };
 
@@ -94,10 +97,10 @@ public:
     linked_list* LIST;
     int Depth;
     SymTab* sTable;
-    EQ* E1;
-    Token* Sym;
-    rel* R1;
-    void PrintEqual(linked_list* list, SymTab* T, int D);
+    EQ* E1= nullptr;
+    string Sym;
+    rel* R1= nullptr;
+    void printEq();
     void EqScan();
 };
 
@@ -108,13 +111,13 @@ public:
     linked_list* LIST;
     int Depth;
     SymTab* sTable;
-    andexpr* AE1;
-    Token* AND;
-    EQ* E1;
-    void PrintAndExpr(linked_list* list, SymTab* T, int D);
+    andexpr* AE1= nullptr;
+    string* AND;
+    EQ* E1= nullptr;
+    void printAndExpr();
     void andScan();
 };
-
+/*
 class assign{
     //id = allepr
 public:
@@ -124,10 +127,10 @@ public:
     SymTab* sTable;
     allexpr* allExpression;
     string ID;
-    void printAssign(linked_list* list, SymTab* T, int D);
+    void printAssign();
     void assignScan();
 };
 
-
+*/
 
 #endif //INC_125PROJ_MISCCLASS_H

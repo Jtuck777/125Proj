@@ -9,50 +9,62 @@ Stmt1::Stmt1(linked_list* list, SymTab* T, int D) //constructor
     sTable = T; Depth = D; LIST=list;
     ScanCls1();
 }
-void Stmt1::ScanCls1() //id terminal, equal sign, an allexpr, and a semicolon
-{
+void Stmt1::ScanCls1(){ //Assign => id = allexpr;
     Token* temp = LIST->head;
     ID=temp->get_data();
-    if (!sTable->inTable(ID)){cout<<"Symbol not in table"<<endl;}
+    string T1 = temp->get_data();
+    if(!sTable->inTable(T1)){cout<<"ERROR";}
     linked_list* AE = LIST->split_set(2, LIST->listSize()-2);
-    allExpression = new allexpr(AE, sTable, Depth++);
+    AE->Print();
+    allExpression = new allexpr(AE, sTable, Depth);
+}
+void Stmt1::printStmt1(){
+    for(int i=0; i<=Depth; i++){cout<<"| "; }
+    cout<<"+--ASSIGN"<<endl;
+    for(int i=0; i<=Depth+1; i++){cout<<"| "; }
+    cout<<"+--Token "<<ID<<endl;
+    allExpression->printAllexpr();
 }
 
-Stmt2::Stmt2(linked_list* list, SymTab* T, int D)
-{
+Stmt2::Stmt2(linked_list* list, SymTab* T, int D){
+    //if (allexpr) stmt
     cout<<"Stmt2 found"<<endl;
     sTable = T, Depth = D; LIST=list;
     ScanCls2();
 }
 
-void Stmt2::ScanCls2()
-{
+void Stmt2::ScanCls2(){
     Token* temp=LIST->head->next->next;
     int position=2; //index 2 starting
     int LP=1;
     int RP=0;
     linked_list* ptr;
     linked_list* ptr2;
-    while(temp->next)
-    {
+    while(temp->next){
         if (temp->get_data()=="(") {RP++;}
         if (temp->get_data()==")") {RP++;}
         if (LP==RP){ptr=LIST->split_set(2, position-1); break;} //removing allexpr from linked list
     }
     cout<<ptr->listSize()<<endl;
-    allExpression= new allexpr (ptr, sTable, Depth++);
+    allExpression= new allexpr (ptr, sTable, Depth);
     ptr2=LIST->split_set(3, LIST->listSize()-1); //accounting for end of the list
-    statement =new Stmt (ptr2, sTable, Depth++);
+    statement =new Stmt (ptr2, sTable, Depth);
+}
+void Stmt2::printStmt2(){
+    for(int i=0; i<=Depth; i++){cout<<"| "; }
+    cout<<"+--IF"<<endl;
+    allExpression->printAllexpr();
+    statement->printStmt();
 }
 
 Stmt3::Stmt3(linked_list* list, SymTab* T, int D)
-{   cout<<"Stmt3 found"<<endl;
+{   //if (allexpr) stmt else stmt
+    cout<<"Stmt3 found"<<endl;
     sTable = T, Depth = D; LIST=list;
     ScanCls3();
 };
 
-void Stmt3::ScanCls3()
-{
+void Stmt3::ScanCls3(){
     Token* temp=LIST->head->next->next;
     int position=2; //index 2 starting
     int LP=1;
@@ -61,20 +73,29 @@ void Stmt3::ScanCls3()
     linked_list* ptr;
     linked_list* ptr2;
     linked_list* ptr3;
-    while(temp->next)
-    {
+    while(temp->next){
         if (temp->get_data()=="(") {RP++;}
         if (temp->get_data()==")") {RP++;}
         if (LP==RP){ptr=LIST->split_set(2, position-1); break;} //removing allexpr from linked list
     }
-    allExpression= new allexpr (ptr, sTable, Depth++);
+    allExpression= new allexpr (ptr, sTable, Depth);
     ptr2=LIST->split_set(3, LIST->listSize()-1); //accounting for end of the list
-    S1 =new Stmt3 (ptr2, sTable, Depth++); //stmt1
-    S2 =new Stmt3 (ptr3,sTable, Depth++); //stmt2
+    S1 =new Stmt3 (ptr2, sTable, Depth); //stmt1
+    S2 =new Stmt3 (ptr3,sTable, Depth); //stmt2
+}
+void Stmt3::printStmt3(){
+    for(int i=0; i<=Depth; i++){cout<<"| "; }
+    cout<<"+--IF"<<endl;
+    allExpression->printAllexpr();
+    S1->printStmt3();
+    for(int i=0; i<=Depth; i++){cout<<"| "; }
+    cout<<"+--ELSE"<<endl;
+    S2->printStmt3();
 }
 
 Stmt4::Stmt4(linked_list* list, SymTab* T, int D)
-{   cout<<"Stmt4 found"<<endl;
+{   //while (allexpr) stmt
+    cout<<"Stmt4 found"<<endl;
     Token* temp = list->head;
     while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
     cout<<endl;
@@ -91,17 +112,22 @@ void Stmt4::ScanCls4()
     SymTab* sTable;
     linked_list* ptr;
     linked_list* ptr2;
-    while(temp)
-    {
+    while(temp){
         if (temp->get_data()=="(") {LP++;}
         if (temp->get_data()==")") {RP++;}
         if (LP==RP){ptr=LIST->split_set(2, pos-1); break;} //removing allexpr from linked list
         temp=temp->next;
-        pos++;
-    }
-    allExpression= new allexpr (ptr, sTable, Depth++);
+        pos++;}
+    allExpression= new allexpr (ptr, sTable, Depth);
     ptr2=LIST->split_set(3, LIST->listSize()-1); //accounting for end of the list
-    statement =new Stmt(ptr2, sTable, Depth++);
+    statement =new Stmt(ptr2, sTable, Depth+1);
+}
+
+void Stmt4::printStmt4(){
+    for(int i=0; i<=Depth; i++){cout<<"| "; }
+    cout<<"+--WHILE"<<endl;
+    allExpression->printAllexpr();
+    statement->printStmt();
 }
 
 Stmt5::Stmt5(linked_list* list, SymTab* T, int D)
@@ -119,25 +145,29 @@ void Stmt5::ScanCls5()
     SymTab* sTable;
     linked_list* ptr;
     int stmtend = 1;
-
     DO = LIST->head;
     temp = temp->next;
-
     while(temp->get_class() != "WHILE"){
         stmtend++;
-        temp = temp->next;
-    }
+        temp = temp->next;}
     WHILE = temp;
-    S1 = new Stmt(LIST->split_set(2,stmtend), sTable, Depth+1);
-    while(temp)
-    {
+    S1 = new Stmt(LIST->split_set(2,stmtend), sTable, Depth);
+    while(temp){
         if (temp->get_data()=="(") {LP++;}
         if (temp->get_data()==")") {RP++;}
         if (LP==RP){ptr=LIST->split_set(2, pos-1); break;} //removing allexpr from linked list
         temp = temp->next;
-        pos++;
-    }
-    allExpression= new allexpr (ptr, sTable, Depth++);
+        pos++;}
+    allExpression= new allexpr (ptr, sTable, Depth);
+}
+
+void Stmt5::printStmt5(){
+    for(int i=0; i<=Depth; i++){cout<<"| "; }
+    cout<<"+--DO"<<endl;
+    S1->printStmt();
+    for(int i=0; i<=Depth; i++){cout<<"| "; }
+    cout<<"+--WHILE"<<endl;
+    allExpression->printAllexpr();
 }
 
 Stmt6::Stmt6(linked_list* list, SymTab* T, int D)
@@ -167,26 +197,30 @@ void Stmt6::ScanCls6()
             temp = temp->next;
             ptr2 = LIST->split_set(3,4);//All expr
         }
-        if(temp->get_data() == ";")
-            ptr3 = LIST->split_set(5,6);//Incdeepr
-
-        if (temp->get_data()==")"){
-            RP++;
-        }
+        if(temp->get_data() == ";"){ ptr3 = LIST->split_set(5,6);}//Incdeepr
+        if (temp->get_data()==")"){RP++;}
         if (LP==RP){ptr4=LIST->split_set(7, position-1); break;} //removing allexpr from linked list
     }
-    A1 = new assign(ptr, sTable, Depth+1);
-    allExpression = new allexpr(ptr2, sTable, Depth+1);
-    IncD = new incdecexpr(ptr3, sTable, Depth+1);
-    S1 = new Stmt(ptr4, sTable, Depth+1);
+    A1 = new Stmt1(ptr, sTable, Depth);
+    allExpression = new allexpr(ptr2, sTable, Depth);
+    IncD = new incdecexpr(ptr3, sTable, Depth);
+    S1 = new Stmt(ptr4, sTable, Depth);
 }
 
+void Stmt6::printStmt6(){
+    for(int i=0; i<=Depth; i++){cout<<"| "; }
+    cout<<"+--FOR"<<endl;
+    allExpression->printAllexpr();
+    IncD->printIncDecEx();
+    S1->printStmt();
+}
 
 Stmt::Stmt(linked_list* list, SymTab* T, int D){sTable = T; Depth = D; LIST = list; makeNewStmt();}
 
 
 void Stmt::makeNewStmt() {
     cout<<"MAKE_NEW_STMT_Called"<<endl;
+    cout<<Depth<<endl;
     Token *temp = LIST->head;
     bool found_flag = false;
     int lbrack = 0;
@@ -200,26 +234,34 @@ void Stmt::makeNewStmt() {
                 while (lbrack != rbrack && lbrack != 0) {
                     if (temp->get_data() == "{") { lbrack++; }
                     if (temp->get_data() == "}") { rbrack++; }
-                    temp = temp->next;
-                }
-                temp = temp->next;
+                    temp = temp->next;}
                 if (temp->get_class() == "ELSE") {
-                    S3 = new Stmt3(LIST, sTable, Depth + 1);
+                    S3 = new Stmt3(LIST, sTable, Depth);
                     found_flag = true;
-                    break;
-                }
-            }
+                    break;}
+                temp = temp->next;       }
         }
         //If no Else is found, S2
-        if (!found_flag) { S2 = new Stmt2(LIST, sTable, Depth + 1); }
+        if (!found_flag) { S2 = new Stmt2(LIST, sTable, Depth); }
     }  //S4 Parsing
-        if (temp->get_class() == "WHILE") { S4 = new Stmt4(LIST, sTable, Depth + 1); }
+        if (temp->get_class() == "WHILE") { S4 = new Stmt4(LIST, sTable, Depth); }
         //S5 Parsing
-        if (temp->get_class() == "DO") { S5 = new Stmt5(LIST, sTable, Depth + 1); }
+        if (temp->get_class() == "DO") { S5 = new Stmt5(LIST, sTable, Depth); }
         //S6 Parsing
-        if (temp->get_class() == "FOR") { S6 = new Stmt6(LIST, sTable, Depth + 1); }
+        if (temp->get_class() == "FOR") { S6 = new Stmt6(LIST, sTable, Depth); }
         //S1 parsing
-        if (temp->get_class() == "ID") { S1 = new Stmt1(LIST, sTable, Depth + 1); }
+        if (temp->get_class() == "ID") { S1 = new Stmt1(LIST, sTable, Depth); }
         if (temp->get_data() == "{") { B = new Block(Depth + 1, LIST, sTable); }
         temp = LIST->head;
     }
+void Stmt::printStmt(){
+    for(int i=0; i<Depth; i++){cout<<"| "; }
+    cout<<"+--STMTS"<<endl;
+    if(S1){S1->printStmt1();}else
+    if(S2){S2->printStmt2();}else
+    if(S3){S3->printStmt3();}else
+    if(S4){S4->printStmt4();}else
+    if(S5){S5->printStmt5();}else
+    if(S6){S6->printStmt6();}else
+    if(B){B->printBlock();}
+}

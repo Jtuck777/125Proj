@@ -17,4 +17,4 @@ add_executable(
         Stmt.cpp
         Parser.cpp
         Lexer.cpp
-        main.cpp)
+        main.cpp SymTab.cpp)

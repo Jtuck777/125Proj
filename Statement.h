@@ -23,16 +23,17 @@ public:
     linked_list* LIST;
     SymTab* sTable;
     int Depth;
-    Stmt1* S1;
-    Stmt2* S2;
-    Stmt3* S3;
-    Stmt4* S4;
-    Stmt5* S5;
-    Stmt6* S6;
-    Block* B;
+    Stmt1* S1= nullptr;
+    Stmt2* S2= nullptr;
+    Stmt3* S3= nullptr;
+    Stmt4* S4= nullptr;
+    Stmt5* S5= nullptr;
+    Stmt6* S6= nullptr;
+    Block* B= nullptr;
     Token* BREAK;
-    //ADAM
+    void printStmt();
     void makeNewStmt();//Determine type of statement and locate its endpoint.
 };
+
 
 #endif //INC_125PROJ_STATEMENT_H

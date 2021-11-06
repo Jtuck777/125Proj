@@ -12,9 +12,10 @@ Lexer::Lexer(){
     cout<<"Please enter the .txt file you'd like to parse"<<endl;
     cin>>fileName;
     ifstream myFile;
+    int line =0;
     myFile.open(fileName);
     if(myFile.is_open()) {
-        int line = 1;
+        line = 1;
         while (getline(myFile, input)) {
             int length = input.length();
             for (int i = 0; i < length; i++) {
@@ -28,7 +29,7 @@ Lexer::Lexer(){
                         T = T + input[j];
                         //Check specifically for single length terminals. And Errors.
                         if (T.length() == 1) {if (isTokenL1(T,N)) {
-                            List->push(T, getLabel(T)); i=j; j=length;
+                            List->push(T, getLabel(T), line); i=j; j=length;
                             if(List->tail->Class == "ERROR"){
                                 List->tail->Class ="Error on line "+to_string(line);
                                 myFile.close();
@@ -36,11 +37,11 @@ Lexer::Lexer(){
                             }}
                         else
                         if (T.length() == 2) {if (isTokenL2(T,N)) {
-                                List->push(T, getLabel(T)); i=j; j=length;
+                                List->push(T, getLabel(T), line); i=j; j=length;
                              }}
                         else
                         if (T.length() > 2){if(isTokenL3plus(T,N)){
-                                List->push(T, getLabel(T)); i=j; j=length;
+                                List->push(T, getLabel(T), line); i=j; j=length;
                             }}
                     }
                 }
@@ -48,13 +49,13 @@ Lexer::Lexer(){
         }
     }else{cout<<"file "<<fileName<<" not opened"<<endl;}
     myFile.close();
-    List->push("EOF","EOF");
+    List->push("EOF","EOF", line);
     nxtTok = List->head;
 }
 Lexer::~Lexer() {delete List;}
 
 Token Lexer::getNextToken() {
-    Token temp("temp", "temp");
+    Token temp("temp", "temp", 0);
     if (nxtTok) {
         temp.Class = nxtTok->get_class();
         temp.data = nxtTok->get_data();

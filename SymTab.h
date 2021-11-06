@@ -4,20 +4,21 @@
 
 #ifndef INC_125PROJ_SYMTAB_H
 #define INC_125PROJ_SYMTAB_H
-#include <vector>
+#include <iostream>
 #include "Decl.h"
+#include "linked_list.h"
+#include "string"
 using namespace std;
 
 class SymTab{
 public:
-    SymTab(){ prev= nullptr;}
-    SymTab(SymTab* T){prev = T;}
+    SymTab();
+    SymTab(SymTab* T);
     SymTab* prev;
-    std::vector<Decl*> D;
-    void push(Decl* d){ D.push_back(d);};
-
-    bool inTable(std::string I){ return true;};
-    std::string findType(std::string I){ return "string";};
+    linked_list* S;
+    void push(string ID, string Type);
+    bool inTable(string I);
+    std::string findType(string I);
 };
 
 #endif //INC_125PROJ_SYMTAB_H

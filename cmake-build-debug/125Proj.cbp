@@ -118,6 +118,9 @@
 		<Unit filename="C:/Users/Jared Tuck/CLionProjects/125Proj/Stmt.h">
 			<Option target="125Proj"/>
 		</Unit>
+		<Unit filename="C:/Users/Jared Tuck/CLionProjects/125Proj/SymTab.cpp">
+			<Option target="125Proj"/>
+		</Unit>
 		<Unit filename="C:/Users/Jared Tuck/CLionProjects/125Proj/SymTab.h">
 			<Option target="125Proj"/>
 		</Unit>

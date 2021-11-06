@@ -277,6 +277,33 @@ Stmt.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/Stmt.cpp.s
 .PHONY : Stmt.cpp.s
 
+SymTab.obj: SymTab.cpp.obj
+
+.PHONY : SymTab.obj
+
+# target to build an object file
+SymTab.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/SymTab.cpp.obj
+.PHONY : SymTab.cpp.obj
+
+SymTab.i: SymTab.cpp.i
+
+.PHONY : SymTab.i
+
+# target to preprocess a source file
+SymTab.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/SymTab.cpp.i
+.PHONY : SymTab.cpp.i
+
+SymTab.s: SymTab.cpp.s
+
+.PHONY : SymTab.s
+
+# target to generate assembly for a file
+SymTab.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\125Proj.dir\build.make CMakeFiles/125Proj.dir/SymTab.cpp.s
+.PHONY : SymTab.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -328,6 +355,9 @@ help:
 	@echo ... Stmt.obj
 	@echo ... Stmt.i
 	@echo ... Stmt.s
+	@echo ... SymTab.obj
+	@echo ... SymTab.i
+	@echo ... SymTab.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

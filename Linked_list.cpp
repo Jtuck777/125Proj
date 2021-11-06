@@ -1,13 +1,13 @@
 //
 // Created by Jared Tuck on 10/24/2021.
 //
-#include <string>
+
 #include <iostream>
 #include "Linked_list.h"
 using namespace std;
 ////////////////////Linked List Functions///////////////////////////////////////
 linked_list::linked_list(){
-    head = tail = NULL;
+    head = tail = nullptr;
 }
 
 linked_list::~linked_list(){
@@ -30,8 +30,8 @@ int linked_list::listSize(){
     return count;
 }
 
-void linked_list::push(string input, string Class){
-    Token* temp = new Token(input, Class);
+void linked_list::push(string input, string Class, int LN){
+    Token* temp = new Token(input, Class, LN);
     if(isEmpty()){head = tail =temp;}
     else
     if(listSize()==1){
@@ -119,7 +119,18 @@ linked_list* linked_list::split_set(int position_1, int position_2) {
         temp2=temp2->next;
         pos++;
     }
-    if(position_1 == position_2){return split(position_1);}
+    if((position_1 == position_2) && position_1==0){return split(position_1);}
+    if((position_1 == position_2) && position_1==SZ-1){return split(position_1);}
+    if(position_1==position_2){
+        Token* temp9= temp2->next;
+        temp9->prev=temp2->prev;
+        temp2->prev->next=temp9;
+        temp2->next = nullptr;
+        temp2->prev = nullptr;
+        new_list->head = temp2;
+        new_list->tail = temp2;
+        return new_list;
+    }
     new_list->head = temp1;
     new_list->tail = temp2;
 
@@ -150,9 +161,16 @@ linked_list linked_list::operator=(linked_list &rhs) {
     Token* temp = rhs.head;
     this->~linked_list();
     while(temp){
-        push(temp->get_data(), temp->get_class());
+        push(temp->get_data(), temp->get_class(), temp->get_LN());
         temp = temp->next;
     }
 
     return *this;
+}
+void linked_list::Print() {
+    Token* temp = head;
+    while(temp){
+        cout<<temp->get_data();
+        temp=temp->next;
+    }cout<<endl;
 }
