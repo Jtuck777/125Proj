@@ -238,38 +238,52 @@ void Stmt5::printStmt5(){
 
 Stmt6::Stmt6(linked_list* list, SymTab* T, int D)
 {   cout<<"Stmt6 found"<<endl;
+    Token* temp=list->head;
+    while(temp){cout<<temp->get_data()<<" ";temp=temp->next;}
     sTable = T, Depth = D, LIST=list;
     ScanCls6();
 };
 
 void Stmt6::ScanCls6()
-{   //for (assign allexpr; incdecexpr)  stmt
-    Token* temp=LIST->head->next->next;
-    int position=2; //index 2 starting
-    int LP=1;
-    int RP=0;
-    linked_list* ptr;
-    linked_list* ptr2;
-    linked_list* ptr3;
-    linked_list* ptr4;
+{   //for (assign allexpr; incdecexpr)  stmt]
 
-    FOR = LIST->head;
-    while(temp->next)
-    {
-        if (temp->get_data()=="("){
-            RP++;
-            ptr = LIST->split_set(2,3);//assign
-            temp = temp->next;
-            ptr2 = LIST->split_set(3,4);//All expr
+    Token* temp=LIST->head;
+    int pos=2; //index 2 starting
+    int semipos = 1;
+
+    FOR = LIST->head->get_class();
+
+
+        if(temp->get_data() == "("){
+            while(temp->get_data() != ";"){
+                semipos++;
+                temp = temp->next;
+            }
+            A1 = new Stmt1(LIST->split_set(pos,semipos), sTable, Depth++);
+            break;
         }
-        if(temp->get_data() == ";"){ ptr3 = LIST->split_set(5,6);}//Incdeepr
-        if (temp->get_data()==")"){RP++;}
-        if (LP==RP){ptr4=LIST->split_set(7, position-1); break;} //removing allexpr from linked list
+        temp = temp->next;
+
+    temp = temp->next;
+    pos = semipos+1;//7,6
+    while(temp->get_data() != ";"){
+        semipos++;
+        temp = temp->next;
     }
-    A1 = new Stmt1(ptr, sTable, Depth);
-    allExpression = new allexpr(ptr2, sTable, Depth);
-    IncD = new incdecexpr(ptr3, sTable, Depth);
-    S1 = new Stmt(ptr4, sTable, Depth);
+    semipos++;
+    allExpression = new allexpr(LIST->split_set(pos,semipos), sTable, Depth++);
+
+    pos = semipos+1;
+
+    while(temp->get_data() != ")"){
+        semipos++;
+        temp = temp->next;
+    }
+
+
+    IncD = new incdecexpr(LIST->split_set(pos,semipos), sTable, Depth++);
+    pos = semipos+2;
+    S1 = new Stmt(LIST->split_set(pos, LIST->listSize()-1), sTable, Depth+1);
 }
 
 void Stmt6::printStmt6(){

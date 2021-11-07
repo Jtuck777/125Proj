@@ -10,8 +10,8 @@ void Parser::PrintTree(){P->printProg();};
 Prog::Prog(linked_list* LIST){
 List = LIST;
 List->Print();
-ErrorCheck1();
-ErrorCheck2();
+//ErrorCheck1();
+//ErrorCheck2();
 if(List->tail->get_class() == "EOF"){List->popEnd();}
 B= new Block(1, List);
 }
@@ -122,22 +122,25 @@ void Block::Scan4Stmt(linked_list* List){
     int RB=0, LB=0, RP=0, LP=0,pos=0,SZ=0;
     bool B_EQ = true, P_EQ =true,INSIDE=false;
     string Data, HEAD_Data, LOOK;
-
+    cout<<"Passed to Scan4STMT ";
+    Token* temp2=List->head;
+    while(temp2){cout<<temp2->get_data()<<" ";temp2=temp2->next;}
     while(temp) {
     if(temp->next){LOOK=temp->next->get_class();}else{LOOK=" ";}
     SZ = List->listSize();
     if(pos==0){HEAD_Data=temp->get_class(); if(HEAD_Data=="DO"){LP=0;RP=0;}}
-    Data=temp->get_class();cout<<Data<<" ";
+    Data=temp->get_class();
     if(Data=="{"){LB++;} if(Data=="}"){RB++;}
     if(Data=="("){LP++;} if(Data==")"){RP++;}
-    if(LB==RB){B_EQ=true;}    if(LP=RP){P_EQ=true;}
-    if(!B_EQ || !P_EQ){INSIDE =true;}
-    if(HEAD_Data=="BASE_TYPE"){cout<<"FLAG";temp = Scan4Decl(List);pos=0;}else
-    if(HEAD_Data=="ID"){cout<<"Flag2";if(Data==";"&& !INSIDE){cout<<"FLAG3";temp=temp->next;StmtFound(List, pos);if(pos==SZ-1){break;}pos=0;}else{temp=temp->next;pos++;}}else
-    if(HEAD_Data=="IF"){if(Data=="}"||Data==";"&& LOOK != "ELSE"&&!INSIDE){temp=temp->next;StmtFound(List, pos);if(pos==SZ-1){break;}pos=0;}else{temp=temp->next;pos++;}}else
-    if(HEAD_Data=="WHILE"){if(Data==";"||Data=="}"&&!INSIDE){temp=temp->next;StmtFound(List, pos);if(pos==SZ-1){break;}pos=0;}else{temp=temp->next;pos++;}}else
+    if(LB==RB){B_EQ=true;}else{B_EQ=false;}
+    if(LP==RP){P_EQ=true;}else{P_EQ=false;}
+    if(!B_EQ || !P_EQ){INSIDE =true;}else{INSIDE=false;}
+    if(HEAD_Data=="BASE_TYPE"){temp = Scan4Decl(List);pos=0;}else
+    if(HEAD_Data=="ID"){if(Data==";"&& !INSIDE){temp=temp->next;StmtFound(List, pos);if(pos==SZ-1){break;}pos=0;}else{temp=temp->next;pos++;}}else
+    if(HEAD_Data=="IF"){if((Data=="}"||Data==";")&& LOOK != "ELSE"&&!INSIDE){temp=temp->next;StmtFound(List, pos);if(pos==SZ-1){break;}pos=0;}else{temp=temp->next;pos++;}}else
+    if(HEAD_Data=="WHILE"){if((Data==";"&&!INSIDE)||(Data=="}"&&!INSIDE)){temp=temp->next;StmtFound(List, pos);if(pos==SZ-1){break;}pos=0;}else{temp=temp->next;pos++;}}else
     if(HEAD_Data=="DO"){if(Data==";" && P_EQ && temp->prev->get_data()==")"){temp=temp->next;StmtFound(List, pos);if(pos==SZ-1){break;}pos=0;}else{temp=temp->next;pos++;}}else
-    if(HEAD_Data=="FOR"){if(Data==";"||Data=="}"&&!INSIDE){temp=temp->next;StmtFound(List, pos);if(pos==SZ-1){break;}pos=0;}else{temp=temp->next;pos++;}}else
+    if(HEAD_Data=="FOR"){if((Data==";"&&!INSIDE)||(Data=="}"&&!INSIDE)){temp=temp->next;StmtFound(List, pos);if(pos==SZ-1){break;}pos=0;}else{temp=temp->next;pos++;}}else
     if(HEAD_Data=="BREAK"){if(Data==";'"){temp=temp->next;StmtFound(List, pos);if(pos==SZ-1){break;}pos=0;}else{temp=temp->next;pos++;}}else
     if(HEAD_Data=="{"){if(Data=="}"&&!INSIDE){temp=temp->next;StmtFound(List, pos);if(pos==SZ-1){break;}pos=0;}else{temp=temp->next;pos++;}}else
     {pos++;temp=temp->next;}

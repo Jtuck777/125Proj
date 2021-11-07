@@ -100,7 +100,7 @@ public:
     linked_list* LIST;
     int Depth;
     SymTab* sTable;
-    Token* FOR;
+    string FOR;
     Stmt1* A1;
     incdecexpr* IncD;
     allexpr* allExpression;

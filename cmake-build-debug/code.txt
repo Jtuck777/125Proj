@@ -1,5 +1,6 @@
 {
 int r; int dd; int a; int d;
-r = a; dd = d;
+r = a; dd = d;int i;
 do {a=d;} while(a<d);
+for(i=0;i<a;i++){a=r;dd=d;}
 }
