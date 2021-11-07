@@ -24,6 +24,12 @@ C:/Users/Jared Tuck/CLionProjects/125Proj/Linked_list.h
 SymTab.h
 C:/Users/Jared Tuck/CLionProjects/125Proj/SymTab.h
 
+C:/Users/Jared Tuck/CLionProjects/125Proj/Parser.cpp
+Parser.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/Parser.h
+vector
+-
+
 C:/Users/Jared Tuck/CLionProjects/125Proj/Parser.h
 vector
 -
@@ -49,12 +55,6 @@ Stmt.h
 C:/Users/Jared Tuck/CLionProjects/125Proj/Stmt.h
 Parser.h
 C:/Users/Jared Tuck/CLionProjects/125Proj/Parser.h
-
-C:/Users/Jared Tuck/CLionProjects/125Proj/Stmt.cpp
-Stmt.h
-C:/Users/Jared Tuck/CLionProjects/125Proj/Stmt.h
-Statement.h
-C:/Users/Jared Tuck/CLionProjects/125Proj/Statement.h
 
 C:/Users/Jared Tuck/CLionProjects/125Proj/Stmt.h
 Parser.h

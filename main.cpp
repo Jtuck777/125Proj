@@ -10,7 +10,6 @@ int main() {
         if(tok.data=="EOF"){break;}
         else{cout<<tok.Class<<" "<<tok.data<<endl;}
     }*/
-    cout<<"Flag1"<<endl;
     Parser* myParser = new Parser(myLexer);
     myParser->PrintTree();
     delete myParser;

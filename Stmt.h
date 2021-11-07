@@ -51,9 +51,9 @@ public:
     SymTab* sTable;
     allexpr* allExpression;
     string IF = "IF";
-    Stmt3* S1;
+    Stmt* S1;
     string ELSE = "ELSE";
-    Stmt3* S2;
+    Stmt* S2;
     linked_list* LIST;
     void ScanCls3();
     void printStmt3();
@@ -81,9 +81,9 @@ public:
     linked_list* LIST;
     int Depth;
     SymTab* sTable;
-    Token* DO;
+    string DO;
     Stmt* S1;
-    Token* WHILE;
+    string WHILE;
     allexpr* allExpression;
     void ScanCls5();
     void printStmt5();

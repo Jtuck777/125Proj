@@ -27,15 +27,14 @@ public:
 
 class Prog{
 public:
-    Prog(linked_list* LIST){
-        List = LIST;
-        if(List->tail->get_class() == "EOF"){List->popEnd();}
-        B= new Block(1, List);
-    }
+    Prog(linked_list* LIST);
     Block* B;
     linked_list* List;
     int Depth = 0;
-    void printProg(){std::cout<<"+--PROGRAM"<<endl; B->printBlock();};
+    void printProg();
+    void ErrorOut(Token* temp);
+    void ErrorCheck1();
+    void ErrorCheck2();
 };
 
 class Parser{

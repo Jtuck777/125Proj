@@ -30,7 +30,7 @@ public:
     Stmt5* S5= nullptr;
     Stmt6* S6= nullptr;
     Block* B= nullptr;
-    Token* BREAK;
+    string BREAK=" ";
     void printStmt();
     void makeNewStmt();//Determine type of statement and locate its endpoint.
 };

@@ -41,11 +41,11 @@ program  -> block
 block -> { decls stmts  }
 decls ->  ε | decls decl
 decl ->  type id ;
-type  ->  int | float | bool
+type  ->  int | float | boolx
 stmts  ->  ε | stmts  stmt
 assign -> id = allexpr ;
-stmt  ->  assign | if (allexpr) stmt | if (allexpr) stmt else stmt | while (allexpr) stmt
-   |   do stmt while (allexpr) ; | for (assign allexpr ; incdecexpr)  stmt  | break ; | block
+stmt  ->  Xassign | Xif (allexpr) stmt | Xif (allexpr) stmt else stmt | while (allexpr) stmt
+   |   Xdo stmt while (allexpr) ; | for (assign allexpr ; incdecexpr)  stmt  | break ; | block
 allexpr -> allexpr || andexpr | andexpr
 andexpr -> andexpr && equal | equal
 equal -> equal == rel | equal != rel | rel

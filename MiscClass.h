@@ -16,6 +16,7 @@ public:
     SymTab* sTable;
     allexpr* AE1= nullptr;
     andexpr* AE2= nullptr;
+    void ErrorCheck();
     void allexpScan();  //scans linkedlist to find allexp seg
     void printAllexpr();
 };

@@ -15,6 +15,39 @@ allexpr::allexpr(linked_list* list, SymTab* T, int D)
     sTable = T, Depth = D; LIST = list;
     allexpScan();
 }
+
+void allexpr::ErrorCheck(){
+    Token* temp = LIST->head;
+    string type;
+    bool TypeFound=false;
+    while(temp){
+        if(temp->get_class()=="ID"){type=sTable->findType(temp->get_data());TypeFound=true;break;}
+        if(temp->get_class()=="NUM"){type="int"; TypeFound=true;break;}
+        if(temp->get_class()=="REAL"){type="float"; TypeFound=true;break;}
+        if(temp->get_class()=="FALSE"||temp->get_class()=="TRUE"){type="bool"; TypeFound=true;break;}
+    temp=temp->next;
+    }
+    string data;
+    while(temp){
+        data = temp->get_class();
+        if(type=="int"){if(data=="REAL"||data=="float"||data=="FALSE"||data=="TRUE"){
+                        cout<<"ERROR: Incompatible arguement ";
+                        cout<<temp->get_data()<<" in expression on line "<<temp->get_LN();}
+        }else
+        if(type=="float"){if(data=="int"||data=="NUM"||data=="FALSE"||data=="TRUE"){
+                        cout<<"ERROR: Incompatible arguement ";
+                        cout<<temp->get_data()<<" in expression on line "<<temp->get_LN();}
+        }else
+        if(type=="bool"){if(data=="REAL"||data=="float"||data=="int"||data=="NUM"){
+                        cout<<"ERROR: Incompatible arguement ";
+                        cout<<temp->get_data()<<" in expression on line "<<temp->get_LN();}
+           if(data=="GE"||data=="LE"||data=="<"||data==">"||data=="+"||data=="-"||data=="*"||data=="/"){
+                        cout<<"ERROR: Incompatible arguement ";
+                        cout<<temp->get_data()<<" in expression on line "<<temp->get_LN();}
+        } temp=temp->next;
+    }
+}
+
 void allexpr::allexpScan()
 //allexpr || andexpr | andexpr
 {

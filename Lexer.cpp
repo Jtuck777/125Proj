@@ -67,10 +67,12 @@ Token Lexer::getNextToken() {
 bool Lexer::isTokenL1(string T, char N) {
     //If any unknown character is found isolate and token will be labeled with an error.
     if((T[0]>33 && T[0]<38) || T[0]==39 || T[0]==44||T[0]==58||T[0]==63||T[0]==64){return true;}
+    if(T[0]==38 && N!=38){return true;}
     if(T[0]==91||T[0]==93||T[0]==94||T[0]==96||T[0]==126){return true;}
     //cout<<T<<endl;
     //If T is "=" can only be partial token if N is also "=", else T is token.
     if(T[0]==61 && N!=61){return true;}
+    if((T[0] == 60 && N != 61)|| (T[0] == 62 && N != 61) || (T[0] == 33 && N!=61)){return true;}
     //If T is "()*+-" return true
     if(T[0]>39 && T[0]<44){return true;}
     //If T is "- / ; { }" return true
@@ -83,20 +85,17 @@ bool Lexer::isTokenL1(string T, char N) {
 }
 
 bool Lexer::isTokenL2(string T, char N) {
-    
-    //concatenation of tokens larger than 1 character
-    //need to account for ID, IF, Real Num, Num, DO , differentiate with a decimal or not
-    string tokens[6] = {"&&", "==", ">=", "<=", "!=", "||"}; //tokens of size 2
+    string tokens[6] = {"&&", "==", ">=", "<=", "!=", ""}; //tokens of size 2
 
     for (int i = 0; i < 2; i++) //size is defined above for tokens of size 2
     {
         if (T[1]== 61) //checking if single character is token "="
             return true;
 
-        if (T =="&&" || T =="=="|| T ==">=" || T == "<=" || T =="!=" || T =="||") //if any defined arguments matched phrase, we have a token
+        if (T =="&&" || T =="=="|| T ==">=" || T == "<=" || T =="!=" || T == "||") //if any defined arguments matched phrase, we have a token
             return true;
 
-        if (isDigit(T[0]) && T[1]==46 && !isDigit(N)|| T[0]==46 && isDigit(T[1]) && (!isDigit(N))) //Real Num
+        if (isDigit(T[0]) && T[1]==46 && !isDigit(N) || T[0]==46 && isDigit(T[1]) && (!isDigit(N))) //Real Num
             return true;
 
         if (isDigit(T[0]) && (isDigit(T[1])) && isChar(N) && N!=46 && !isDigit(N))  //Num
@@ -113,7 +112,9 @@ bool Lexer::isTokenL2(string T, char N) {
         else
             return false;
     }
+
     return false;
+
 }
 
 bool Lexer::isTokenL3plus(string input, char N) {
