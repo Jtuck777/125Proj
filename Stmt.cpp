@@ -245,45 +245,54 @@ Stmt6::Stmt6(linked_list* list, SymTab* T, int D)
 };
 
 void Stmt6::ScanCls6()
-{   //for (assign allexpr; incdecexpr)  stmt]
-
+{   //for (assign allexpr; incdecexpr)  stmt
+    /*int LP=0, RP=0, pos=0;
+    Token* temp = LIST->head;
+    string data;
+    while(temp){
+        data = temp->get_data();
+        if(data=="("){LP++;}
+        if(data==")"){RP++;}
+        if(data==")")
+    }*/
     Token* temp=LIST->head;
     int pos=2; //index 2 starting
     int semipos = 1;
 
     FOR = LIST->head->get_class();
-
-
-        if(temp->get_data() == "("){
-            while(temp->get_data() != ";"){
-                semipos++;
-                temp = temp->next;
-            }
-            A1 = new Stmt1(LIST->split_set(pos,semipos), sTable, Depth++);
-            break;
-        }
-        temp = temp->next;
-
     temp = temp->next;
-    pos = semipos+1;//7,6
+
+
+    if(temp->get_data() == "("){
+        while(temp->get_data() != ";"){
+            semipos++;
+            temp = temp->next;
+        }
+        A1 = new Stmt1(LIST->split_set(pos,semipos), sTable, Depth);
+    }
+
+    temp = LIST->head;
+
+    semipos = 0;
     while(temp->get_data() != ";"){
         semipos++;
         temp = temp->next;
     }
-    semipos++;
-    allExpression = new allexpr(LIST->split_set(pos,semipos), sTable, Depth++);
 
-    pos = semipos+1;
+    allExpression = new allexpr(LIST->split_set(pos,semipos-1), sTable, Depth);
+
+    semipos = 0;
+
+    temp = LIST->head;
 
     while(temp->get_data() != ")"){
         semipos++;
         temp = temp->next;
     }
 
+    IncD = new incdecexpr(LIST->split_set(pos+1,semipos), sTable, Depth+1);
 
-    IncD = new incdecexpr(LIST->split_set(pos,semipos), sTable, Depth++);
-    pos = semipos+2;
-    S1 = new Stmt(LIST->split_set(pos, LIST->listSize()-1), sTable, Depth+1);
+    S1 = new Stmt(LIST->split_set(3, LIST->listSize()-1), sTable, Depth);
 }
 
 void Stmt6::printStmt6(){

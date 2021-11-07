@@ -212,8 +212,8 @@ void expr::exprScan(){
         if(!inside && symfound) {
             linked_list* temp3 = LIST -> split_set(0, pos - 1);
             linked_list* temp4 = LIST -> split_set(1, LIST->listSize() - 1);
-            E1 = new expr(temp3, sTable, Depth);
-            T1 = new term(temp4, sTable, Depth);
+            E1 = new expr(temp3, sTable, Depth+1);
+            T1 = new term(temp4, sTable, Depth+1);
             break;        }
         pos++;
         temp=temp->next;
@@ -222,9 +222,10 @@ void expr::exprScan(){
 }
 void expr::printExpr(){
     if(E1){
-        E1->printExpr();
+
         for(int i=0; i<=Depth; i++){cout<<"| "; }
         cout<<"+--Token "<<tok<<endl;
+        E1->printExpr();
         T1->printTerm();
     }else{T1->printTerm();}
 

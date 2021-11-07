@@ -10,8 +10,8 @@ void Parser::PrintTree(){P->printProg();};
 Prog::Prog(linked_list* LIST){
 List = LIST;
 List->Print();
-//ErrorCheck1();
-//ErrorCheck2();
+ErrorCheck1();
+ErrorCheck2();
 if(List->tail->get_class() == "EOF"){List->popEnd();}
 B= new Block(1, List);
 }
@@ -58,15 +58,18 @@ void Prog::ErrorCheck2() {
         data = temp->get_class();
         if(data=="BASE_TYPE"){
             if(!temp->next){ErrorOut(temp);}
-            if(temp->next->get_class() != "ID"){cout<<"flag3.1";ErrorOut(temp);}
+            if(temp->next->get_class() != "ID"){ErrorOut(temp);}
         }
-        if(data=="ID" && temp->next->get_class()=="ID"){cout<<"flag3.6";ErrorOut(temp->next);}
+        if(data=="ID" && temp->next->get_class()=="ID"){ErrorOut(temp->next);}
 
         if(data=="WHILE" || data=="IF"){
-            if(!temp->next || temp->next->get_class() != "("){cout<<"flag4";ErrorOut(temp);}
+            if(!temp->next || temp->next->get_class() != "("){ErrorOut(temp);}
         }
         if(data=="ELSE"||data=="WHILE"||data=="DO"||data=="IF"||data=="FOR"||data=="BASE_TYPE"){
-            if(temp->prev->get_class()!="}"&&temp->prev->get_class()!=";"&&temp->prev->get_class()!="{"){cout<<"flag5";ErrorOut(temp);}
+            if(temp->prev->get_class()!="}"&&temp->prev->get_class()!=";"&&temp->prev->get_class()!="{"){ErrorOut(temp);}
+        }
+        if(data == "ID"|| data == "NUM"||data=="float"){
+            if(temp->next->get_class()=="WHILE"){ErrorOut(temp);}
         }
     temp=temp->next;
     }
