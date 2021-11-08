@@ -150,8 +150,8 @@ void Stmt3::ScanCls3(){
         cout<<temp->get_data();
         temp = temp->next;
     }
-    S1 =new Stmt (ptr2, sTable, Depth); //stmt1
-    S2 =new Stmt (ptr3,sTable, Depth); //stmt2
+    S1 =new Stmt (ptr2, sTable, Depth+1); //stmt1
+    S2 =new Stmt (ptr3,sTable, Depth+1); //stmt2
 }
 void Stmt3::printStmt3(){
     for(int i=0; i<=Depth; i++){cout<<"| "; }

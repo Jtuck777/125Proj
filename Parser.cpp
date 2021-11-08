@@ -62,6 +62,7 @@ void Prog::ErrorCheck2() {
             if(!temp->next){ErrorOut(temp);}
             if(temp->next->get_class() != "ID"){ErrorOut(temp);}
         }
+        if(data==";"&& data2==";"){ErrorOut(temp);}
         if(data=="ID"){
             if(data2=="ID"){ErrorOut(temp);}
             if(data2==";" && data3==";"){ErrorOut(temp);}
@@ -163,7 +164,7 @@ void Block::Scan4Stmt(linked_list* List){
     if(HEAD_Data=="WHILE"){if((Data==";"&&!INSIDE)||(Data=="}"&&!INSIDE)){temp=temp->next;StmtFound(List, pos);if(pos==SZ-1){break;}pos=0;}else{temp=temp->next;pos++;}}else
     if(HEAD_Data=="DO"){if(Data==";" && P_EQ && temp->prev->get_data()==")"){temp=temp->next;StmtFound(List, pos);if(pos==SZ-1){break;}pos=0;}else{temp=temp->next;pos++;}}else
     if(HEAD_Data=="FOR"){if((Data==";"&&!INSIDE)||(Data=="}"&&!INSIDE)){temp=temp->next;StmtFound(List, pos);if(pos==SZ-1){break;}pos=0;}else{temp=temp->next;pos++;}}else
-    if(HEAD_Data=="BREAK"){if(Data==";'"){temp=temp->next;StmtFound(List, pos);if(pos==SZ-1){break;}pos=0;}else{temp=temp->next;pos++;}}else
+    if(HEAD_Data=="BREAK"){if(Data==";"){temp=temp->next;StmtFound(List, pos);if(pos==SZ-1){break;}pos=0;}else{temp=temp->next;pos++;}}else
     if(HEAD_Data=="{"){if(Data=="}"&&!INSIDE){temp=temp->next;StmtFound(List, pos);if(pos==SZ-1){break;}pos=0;}else{temp=temp->next;pos++;}}else
     {pos++;temp=temp->next;}
     if(!temp){

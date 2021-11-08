@@ -1,11 +1,30 @@
 {
-int r; int dd; int a;int d;int a;
-r = a; dd = d;int i;
-do break; while(a=a+a;);
-for(i=0;i<a; i++){a=r;dd=d;}
-do d=a+i; while(a<d);
-if(a<6)a=90; else d=90;
-int r; int i; r=0;
-do i=a+i; while(a<d);
-for (i=0; i<=5; i++){r = a+d; }
+    int a; int b; int c; int r; int dd;
+    dd = 1;
+    do
+    {
+        for(r = 0; r < 20; r++)
+        {
+            a = b + 2;
+            b = a + 1;
+        }
+    }
+    while( b < 20);
+
+    while(dd < 20)
+    {
+        if(dd*8 == 1*6 )
+        {
+            dd = dd + 1;
+        }
+        else
+        {
+            dd = dd + 2;
+        }
+        if( dd == 10)
+        {
+            break;
+        }
+
+    }
 }

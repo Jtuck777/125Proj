@@ -309,10 +309,7 @@ void EQ::EqScan(){
     Token *temp = LIST -> head;
     bool inside;
     int rp = 0, lp = 0, rb = 0, lb = 0, pos = 0;
-   /* cout<<endl;
-    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
-    cout<<endl;
-    temp=LIST->head;*/
+
     while(temp){
         if (temp ->get_data() == "(")   rp++;
         if (temp ->get_data() == ")")   lp++;
@@ -330,8 +327,8 @@ void EQ::EqScan(){
         {   Sym = temp->get_data();
             linked_list* temp3 = LIST -> split_set(0, pos - 1);
             linked_list* temp4 = LIST -> split_set(1, LIST->listSize() - 1);
-            E1 = new EQ(temp3, sTable, Depth );
-            R1 = new rel(temp4, sTable, Depth);
+            E1 = new EQ(temp3, sTable, Depth+1 );
+            R1 = new rel(temp4, sTable, Depth+1);
             break;
         }
         pos++;
