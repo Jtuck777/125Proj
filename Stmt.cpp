@@ -12,6 +12,12 @@ Stmt1::Stmt1(linked_list* list, SymTab* T, int D) //constructor
 void Stmt1::ScanCls1(){ //Assign => id = allexpr;
     typeCheck();
     Token* temp = LIST->head;
+    if(LIST->listSize()<4||LIST->tail->get_data()!=";"||LIST->head->next->get_data()!="="){
+        cout<<"ERROR: No applicable Grammar for Stmt on line ";
+        cout<<LIST->head->get_LN()<<" Beginning with Token ";
+        cout<<LIST->head->get_data()<<endl; exit(1);
+    }
+
     ID=temp->get_data();
     if(!sTable->inTable(ID)){cout<<"Undeclared ID ERROR on line "<<temp->get_LN()<<endl;}
     linked_list* AE = LIST->split_set(2, LIST->listSize()-2);
@@ -212,7 +218,7 @@ void Stmt5::ScanCls5()
         temp = temp->next;
     }
     WHILE = temp->get_class();
-    S1 = new Stmt(LIST->split_set(1,stmtend-1), sTable, Depth);
+    S1 = new Stmt(LIST->split_set(1,stmtend-1), sTable, Depth+1);
     temp = LIST->head;
 
     while(temp){
@@ -245,54 +251,35 @@ Stmt6::Stmt6(linked_list* list, SymTab* T, int D)
 };
 
 void Stmt6::ScanCls6()
-{   //for (assign allexpr; incdecexpr)  stmt
-    /*int LP=0, RP=0, pos=0;
-    Token* temp = LIST->head;
-    string data;
-    while(temp){
-        data = temp->get_data();
-        if(data=="("){LP++;}
-        if(data==")"){RP++;}
-        if(data==")")
-    }*/
-    Token* temp=LIST->head;
+{   Token* temp=LIST->head;
     int pos=2; //index 2 starting
     int semipos = 1;
 
     FOR = LIST->head->get_class();
     temp = temp->next;
 
-
     if(temp->get_data() == "("){
         while(temp->get_data() != ";"){
             semipos++;
             temp = temp->next;
         }
-        A1 = new Stmt1(LIST->split_set(pos,semipos), sTable, Depth);
+        A1 = new Stmt1(LIST->split_set(pos,semipos), sTable, Depth+1);
     }
-
     temp = LIST->head;
-
     semipos = 0;
     while(temp->get_data() != ";"){
         semipos++;
         temp = temp->next;
     }
-
     allExpression = new allexpr(LIST->split_set(pos,semipos-1), sTable, Depth);
-
     semipos = 0;
-
     temp = LIST->head;
-
     while(temp->get_data() != ")"){
         semipos++;
         temp = temp->next;
     }
-
     IncD = new incdecexpr(LIST->split_set(pos+1,semipos), sTable, Depth+1);
-
-    S1 = new Stmt(LIST->split_set(3, LIST->listSize()-1), sTable, Depth);
+    S1 = new Stmt(LIST->split_set(3, LIST->listSize()-1), sTable, Depth+1);
 }
 
 void Stmt6::printStmt6(){

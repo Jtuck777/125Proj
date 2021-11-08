@@ -13,6 +13,7 @@ allexpr::allexpr(linked_list* list, SymTab* T, int D)
     while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
     cout<<endl;
     sTable = T, Depth = D; LIST = list;
+    ErrorCheck();
     allexpScan();
 }
 
@@ -44,7 +45,15 @@ void allexpr::ErrorCheck(){
            if(data=="GE"||data=="LE"||data=="<"||data==">"||data=="+"||data=="-"||data=="*"||data=="/"){
                         cout<<"ERROR: Incompatible arguement ";
                         cout<<temp->get_data()<<" in expression on line "<<temp->get_LN();}
-        } temp=temp->next;
+        }
+        if(data == "="||data =="DO"||data =="BREAK"||data =="IF"||data =="WHILE"||data =="ELSE"||data =="FOR"||data ==";"
+           ||data=="{"||data=="}"){
+            cout<<"ERROR: No applicable Grammar for Stmt on line ";
+            cout<<LIST->head->get_LN()<<" Beginning with Token ";
+            cout<<LIST->head->get_data()<<". Incompatible Token";
+            cout<<temp->get_data(); exit(1);
+        }
+        temp=temp->next;
     }
 }
 
@@ -86,6 +95,11 @@ incdecexpr::incdecexpr(linked_list* list, SymTab* T, int D)
 {   cout<<" INCDEC_EXPRES_CALLED "<<endl;
     Token* temp = list->head;
     while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    if(list->listSize()<3){
+        cout<<"ERROR: No applicable Grammar for Stmt on line ";
+        cout<<list->head->get_LN()<<" Beginning with Token ";
+        cout<<list->head->get_data()<<endl; exit(1);
+    }
     cout<<endl;
     sTable = T; Depth = D;LIST = list;
     temp = LIST -> head;

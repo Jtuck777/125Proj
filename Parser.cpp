@@ -53,14 +53,19 @@ void Prog::ErrorCheck1() {
 }
 void Prog::ErrorCheck2() {
     Token* temp = List->head;
-    string data;
+    string  data, data2, data3;
     while(temp){
         data = temp->get_class();
+        if(temp->next){data2=temp->next->get_class();}else{data2=" ";}
+        if(temp->prev){data3=temp->prev->get_class();}else{data3=" ";}
         if(data=="BASE_TYPE"){
             if(!temp->next){ErrorOut(temp);}
             if(temp->next->get_class() != "ID"){ErrorOut(temp);}
         }
-        if(data=="ID" && temp->next->get_class()=="ID"){ErrorOut(temp->next);}
+        if(data=="ID"){
+            if(data2=="ID"){ErrorOut(temp);}
+            if(data2==";" && data3==";"){ErrorOut(temp);}
+        }
 
         if(data=="WHILE" || data=="IF"){
             if(!temp->next || temp->next->get_class() != "("){ErrorOut(temp);}
@@ -69,8 +74,16 @@ void Prog::ErrorCheck2() {
             if(temp->prev->get_class()!="}"&&temp->prev->get_class()!=";"&&temp->prev->get_class()!="{"){ErrorOut(temp);}
         }
         if(data == "ID"|| data == "NUM"||data=="float"){
-            if(temp->next->get_class()=="WHILE"){ErrorOut(temp);}
+            if(data2=="WHILE"){ErrorOut(temp);}
+            if(data2=="ID"){ErrorOut(temp);}
+            if(data2=="IF"){ErrorOut(temp);}
+
         }
+        if(data=="("||data=="{"){
+            if(data2==")"){ErrorOut(temp);}
+            if(data2=="}"){ErrorOut(temp);}
+        }
+
     temp=temp->next;
     }
 }

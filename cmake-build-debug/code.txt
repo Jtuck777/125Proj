@@ -1,11 +1,11 @@
 {
-int r; int dd; int a;int d;
+int r; int dd; int a;int d;int a;
 r = a; dd = d;int i;
-do {a=d;} while(a<d);
-for(i=0;i<a;i++){a=r;dd=d;}
-do a+i while+(a<d);
-
+do break; while(a=a+a;);
+for(i=0;i<a; i++){a=r;dd=d;}
+do d=a+i; while(a<d);
+if(a<6)a=90; else d=90;
 int r; int i; r=0;
-
+do i=a+i; while(a<d);
 for (i=0; i<=5; i++){r = a+d; }
 }
