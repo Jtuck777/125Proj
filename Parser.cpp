@@ -83,7 +83,13 @@ void Prog::ErrorCheck2() {
             if(data2==")"){ErrorOut(temp);}
             if(data2=="}"){ErrorOut(temp);}
         }
-
+        if(data=="BASE_TYPE"&&data2=="ID"&&temp->next->next->get_data()!=";"){ErrorOut(temp);}
+        if(data=="ID"){
+            if(data2=="-"&& temp->next->next->get_data()=="-"&&temp->next->next->next->get_data()!=")")
+            {ErrorOut(temp);}
+            if(data2=="+"&& temp->next->next->get_data()=="+"&&temp->next->next->next->get_data()!=")")
+            {ErrorOut(temp);}
+        }
     temp=temp->next;
     }
 }
