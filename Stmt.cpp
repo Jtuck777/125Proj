@@ -5,7 +5,7 @@
 
 Stmt1::Stmt1(linked_list* list, SymTab* T, int D) //constructor
 {    //Assign => id = allexpr;
-    cout<<"Stmt1 Assign found"<<endl;
+    //cout<<"Stmt1 Assign found"<<endl;
     sTable = T; Depth = D; LIST=list;
     ScanCls1();
 }
@@ -21,7 +21,7 @@ void Stmt1::ScanCls1(){ //Assign => id = allexpr;
     ID=temp->get_data();
     if(!sTable->inTable(ID)){cout<<"Undeclared ID ERROR on line "<<temp->get_LN()<<endl;}
     linked_list* AE = LIST->split_set(2, LIST->listSize()-2);
-    AE->Print();
+    //AE->Print();
     allExpression = new allexpr(AE, sTable, Depth);
 }
 void Stmt1::printStmt1(){
@@ -73,7 +73,7 @@ void Stmt1::typeCheck() {
 }
 Stmt2::Stmt2(linked_list* list, SymTab* T, int D){
     //if (allexpr) stmt
-    cout<<"Stmt2 found"<<endl;
+    //cout<<"Stmt2 found"<<endl;
     sTable = T, Depth = D; LIST=list;
     ScanCls2();
 }
@@ -95,12 +95,10 @@ void Stmt2::ScanCls2(){
         temp = temp->next;
         pos++;
     }
-
     temp = LIST->head;
-
     allExpression= new allexpr (ptr, sTable, Depth);
     ptr2=LIST->split_set(3, LIST->listSize()-1); //accounting for end of the list
-    cout <<"this works";
+    //cout <<"this works";
     statement =new Stmt (ptr2, sTable, Depth); //stmt1
 }
 void Stmt2::printStmt2(){
@@ -112,7 +110,7 @@ void Stmt2::printStmt2(){
 
 Stmt3::Stmt3(linked_list* list, SymTab* T, int D)
 {   //if (allexpr) stmt else stmt
-    cout<<"Stmt3 found"<<endl;
+    //cout<<"Stmt3 found"<<endl;
     sTable = T, Depth = D; LIST=list;
     ScanCls3();
 };
@@ -135,21 +133,16 @@ void Stmt3::ScanCls3(){
         temp = temp->next;
         pos++;
     }
-
     temp = LIST->head;
     while(temp->get_class() !="ELSE"){
         count++;
         temp = temp->next;
     }
-
     allExpression= new allexpr (ptr, sTable, Depth);
     ptr2=LIST->split_set(3, count-1); //accounting for end of the list
     ptr3 = LIST->split_set(4,LIST->listSize()-1);
     temp = ptr3->head;
-    while(temp){
-        cout<<temp->get_data();
-        temp = temp->next;
-    }
+    //while(temp){cout<<temp->get_data();temp = temp->next;}
     S1 =new Stmt (ptr2, sTable, Depth+1); //stmt1
     S2 =new Stmt (ptr3,sTable, Depth+1); //stmt2
 }
@@ -165,10 +158,10 @@ void Stmt3::printStmt3(){
 
 Stmt4::Stmt4(linked_list* list, SymTab* T, int D)
 {   //while (allexpr) stmt
-    cout<<"Stmt4 found"<<endl;
+    //cout<<"Stmt4 found"<<endl;
     Token* temp = list->head;
-    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
-    cout<<endl;
+    //while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    //cout<<endl;
     sTable = T, Depth = D, LIST=list;
     ScanCls4();
 };
@@ -200,7 +193,7 @@ void Stmt4::printStmt4(){
 }
 
 Stmt5::Stmt5(linked_list* list, SymTab* T, int D)
-{   cout<<"Stmt5 found"<<endl;
+{   //cout<<"Stmt5 found"<<endl;
     sTable = T, Depth = D, LIST=list;
     ScanCls5();
 };
@@ -229,8 +222,6 @@ void Stmt5::ScanCls5()
         temp = temp->next;
     }
     allExpression= new allexpr (ptr, sTable, Depth);
-
-
 }
 
 void Stmt5::printStmt5(){
@@ -243,9 +234,9 @@ void Stmt5::printStmt5(){
 }
 
 Stmt6::Stmt6(linked_list* list, SymTab* T, int D)
-{   cout<<"Stmt6 found"<<endl;
+{   //cout<<"Stmt6 found"<<endl;
     Token* temp=list->head;
-    while(temp){cout<<temp->get_data()<<" ";temp=temp->next;}
+    //while(temp){cout<<temp->get_data()<<" ";temp=temp->next;}
     sTable = T, Depth = D, LIST=list;
     ScanCls6();
 };
@@ -292,10 +283,9 @@ void Stmt6::printStmt6(){
 
 Stmt::Stmt(linked_list* list, SymTab* T, int D){sTable = T; Depth = D; LIST = list; makeNewStmt();}
 
-
 void Stmt::makeNewStmt() {
-    cout<<"MAKE_NEW_STMT_Called"<<endl;
-    cout<<Depth<<endl;
+//    cout<<"MAKE_NEW_STMT_Called"<<endl;
+  //  cout<<Depth<<endl;
     Token *temp = LIST->head;
     bool found_flag = false;
     int lbrack = 0;
@@ -310,17 +300,13 @@ void Stmt::makeNewStmt() {
                     if (temp->get_data() == "{") { lbrack++; }
                     if (temp->get_data() == "}") { rbrack++; }
                     temp = temp->next;
-                    counter++;
-                }
+                    counter++;}
             }
-
             if(counter == LIST->listSize()){break;}
-
             if (temp->get_class() == "ELSE"){
                 S3 = new Stmt3(LIST, sTable, Depth);
                 found_flag = true;
-                break;
-            }
+                break;         }
             temp = temp->next;
             counter++;
         }

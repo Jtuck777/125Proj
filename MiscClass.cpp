@@ -8,10 +8,10 @@ using namespace std;
 
 //allexpr Functions
 allexpr::allexpr(linked_list* list, SymTab* T, int D)
-{   cout<<" ALLEXPR_CALLED "<<endl;
+{   //cout<<" ALLEXPR_CALLED "<<endl;
     Token* temp = list->head;
-    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
-    cout<<endl;
+    //while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    //cout<<endl;
     sTable = T, Depth = D; LIST = list;
     ErrorCheck();
     allexpScan();
@@ -32,18 +32,18 @@ void allexpr::ErrorCheck(){
     while(temp){
         data = temp->get_class();
         if(type=="int"){if(data=="REAL"||data=="float"||data=="FALSE"||data=="TRUE"){
-                        cout<<"ERROR: Incompatible arguement ";
+                        cout<<"ERROR: Incompatible Argument ";
                         cout<<temp->get_data()<<" in expression on line "<<temp->get_LN();}
         }else
         if(type=="float"){if(data=="int"||data=="NUM"||data=="FALSE"||data=="TRUE"){
-                        cout<<"ERROR: Incompatible arguement ";
+                        cout<<"ERROR: Incompatible Argument ";
                         cout<<temp->get_data()<<" in expression on line "<<temp->get_LN();}
         }else
         if(type=="bool"){if(data=="REAL"||data=="float"||data=="int"||data=="NUM"){
-                        cout<<"ERROR: Incompatible arguement ";
+                        cout<<"ERROR: Incompatible Argument ";
                         cout<<temp->get_data()<<" in expression on line "<<temp->get_LN();}
            if(data=="GE"||data=="LE"||data=="<"||data==">"||data=="+"||data=="-"||data=="*"||data=="/"){
-                        cout<<"ERROR: Incompatible arguement ";
+                        cout<<"ERROR: Incompatible Argument ";
                         cout<<temp->get_data()<<" in expression on line "<<temp->get_LN();}
         }
         if(data == "="||data =="DO"||data =="BREAK"||data =="IF"||data =="WHILE"||data =="ELSE"||data =="FOR"||data ==";"
@@ -92,19 +92,19 @@ void allexpr::printAllexpr(){
 }
 
 incdecexpr::incdecexpr(linked_list* list, SymTab* T, int D)
-{   cout<<" INCDEC_EXPRES_CALLED "<<endl;
+{   //cout<<" INCDEC_EXPRES_CALLED "<<endl;
     Token* temp = list->head;
-    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    //while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
     if(list->listSize()<3){
         cout<<"ERROR: No applicable Grammar for Stmt on line ";
         cout<<list->head->get_LN()<<" Beginning with Token ";
         cout<<list->head->get_data()<<endl; exit(1);
     }
-    cout<<endl;
+    //cout<<endl;
     sTable = T; Depth = D;LIST = list;
     temp = LIST -> head;
     ID = temp ->get_data();
-    if(!sTable->inTable(ID)){cout<<"ERROR on line "<<temp->get_LN()<<endl;}
+    if(!sTable->inTable(ID)){cout<<"ERROR on Line "<<temp->get_LN()<<endl;}
     temp = temp -> next;
     s1 = temp->get_data();
     s2 = temp ->next ->get_data();
@@ -119,10 +119,10 @@ void incdecexpr::printIncDecEx() {
 }
 //factor functions
 factor::factor(linked_list* list, SymTab* T, int D)
-{   cout<<" FACTOR CALLED "<<endl;
+{   //cout<<" FACTOR CALLED "<<endl;
     Token* temp = list->head;
-    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
-    cout<<endl;
+    //while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    //cout<<endl;
     sTable = T, Depth = D;LIST = list;
     scan();
 }
@@ -140,7 +140,7 @@ void factor::scan()
         if(temp->get_class()=="ID"){
             if(!sTable->inTable(tok)){
                 cout<<"SCOPE ERROR on line "<<temp->get_LN()<<", ID '"<<temp->get_data()<<"' is UN-INITILIZED."<<endl; exit(1);}}
-        cout<<"Found Terminal "<<tok<<endl;
+      //  cout<<"Found Terminal "<<tok<<endl;
     }
 }
 void factor::printFact(){
@@ -151,10 +151,10 @@ void factor::printFact(){
 }
 //Term Function
 term::term(linked_list* list, SymTab* T, int D)
-{   cout<<" TERM_CALLED "<<endl;
+{   //cout<<" TERM_CALLED "<<endl;
     Token* temp = list->head;
-    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
-    cout<<endl;
+    //while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    //cout<<endl;
     sTable = T, Depth = D; LIST = list;
     termScan();
 }
@@ -198,10 +198,10 @@ void term::printTerm() {
 
 //Expr Function
 expr::expr(linked_list* list, SymTab* T, int D)
-{   cout<<" EXPR_CALLED "<<endl;
+{   //cout<<" EXPR_CALLED "<<endl;
     Token* temp = list->head;
-    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
-    cout<<endl;
+    //while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    //cout<<endl;
     sTable = T, Depth = D;LIST = list;
     exprScan();}
 
@@ -236,21 +236,19 @@ void expr::exprScan(){
 }
 void expr::printExpr(){
     if(E1){
-
         for(int i=0; i<=Depth; i++){cout<<"| "; }
         cout<<"+--Token "<<tok<<endl;
         E1->printExpr();
         T1->printTerm();
     }else{T1->printTerm();}
-
 }
 
 //rel Function
 rel::rel(linked_list* list, SymTab* T, int D)
-{   cout<<" REL_CALLED "<<endl;
+{   //cout<<" REL_CALLED "<<endl;
     Token* temp = list->head;
-    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
-    cout<<endl;
+    //while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    //cout<<endl;
     sTable = T, Depth = D; LIST = list;
     relScan();
 }
@@ -296,10 +294,10 @@ void rel::printRel() {
 }
 
 EQ::EQ(linked_list* list, SymTab* T, int D)
-{   cout<<" EQ_CALLED "<<endl;
+{   //cout<<" EQ_CALLED "<<endl;
     Token* temp = list->head;
-    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
-    cout<<endl;
+    //while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    //cout<<endl;
     sTable = T, Depth = D; LIST = list;
     EqScan();
 }
@@ -354,7 +352,6 @@ void EQ::typeCheck() {
         }
         temp=temp->next;
     }
-
 }
 
 void EQ::printEq(){
@@ -366,10 +363,10 @@ void EQ::printEq(){
     R1->printRel();
 }
 andexpr::andexpr(linked_list* list, SymTab* T, int D)
-{   cout<<" ANDEXPR_CALLED "<<endl;
+{   //cout<<" ANDEXPR_CALLED "<<endl;
     Token* temp = list->head;
-    while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
-    cout<<endl;
+    //while(temp){cout<<temp->get_class()<<" ";temp=temp->next;}
+    //cout<<endl;
     sTable = T, Depth = D;LIST = list;
     andScan();
 }

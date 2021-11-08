@@ -6,8 +6,10 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/Jared Tuck/CLionProjects/125Proj/Linked_list.cpp
-iostream
+C:/Users/Jared Tuck/CLionProjects/125Proj/Decl.h
+
+C:/Users/Jared Tuck/CLionProjects/125Proj/Lexer.h
+string
 -
 Linked_list.h
 C:/Users/Jared Tuck/CLionProjects/125Proj/Linked_list.h
@@ -15,4 +17,60 @@ C:/Users/Jared Tuck/CLionProjects/125Proj/Linked_list.h
 C:/Users/Jared Tuck/CLionProjects/125Proj/Linked_list.h
 string
 -
+
+C:/Users/Jared Tuck/CLionProjects/125Proj/MiscClass.h
+linked_list.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/Linked_list.h
+SymTab.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/SymTab.h
+
+C:/Users/Jared Tuck/CLionProjects/125Proj/Parser.h
+vector
+-
+iostream
+-
+Lexer.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/Lexer.h
+linked_list.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/Linked_list.h
+Statement.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/Statement.h
+SymTab.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/SymTab.h
+Decl.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/Decl.h
+
+C:/Users/Jared Tuck/CLionProjects/125Proj/Statement.h
+linked_list.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/Linked_list.h
+SymTab.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/SymTab.h
+Stmt.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/Stmt.h
+Parser.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/Parser.h
+
+C:/Users/Jared Tuck/CLionProjects/125Proj/Stmt.cpp
+Stmt.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/Stmt.h
+Statement.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/Statement.h
+
+C:/Users/Jared Tuck/CLionProjects/125Proj/Stmt.h
+Parser.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/Parser.h
+Linked_list.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/Linked_list.h
+MiscClass.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/MiscClass.h
+iostream
+-
+
+C:/Users/Jared Tuck/CLionProjects/125Proj/SymTab.h
+iostream
+-
+linked_list.h
+C:/Users/Jared Tuck/CLionProjects/125Proj/Linked_list.h
+string
+C:/Users/Jared Tuck/CLionProjects/125Proj/string
 

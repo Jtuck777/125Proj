@@ -7,13 +7,13 @@
 SymTab::SymTab(){ S = new linked_list(); prev= nullptr;}
 SymTab::SymTab(SymTab* T){S= new linked_list(); prev = T;}
 
-void SymTab::push(string ID, string Type){S->push(ID, Type, 0); SZ++; cout<<"SymTable Size is "<<SZ<<endl;}
+void SymTab::push(string ID, string Type){S->push(ID, Type, 0); SZ++;}
 
 bool SymTab::inTable(std::string I){
     Token* temp = S->head;
     bool valid = false;
     while(temp){
-        if(temp->get_data()==I){cout<<"VERIFIED "<<I<<endl;valid=true; break;}
+        if(temp->get_data()==I){valid=true; break;}
         temp=temp->next;
     }
      if(!valid && prev){return prev->inTable(I);}

@@ -21,8 +21,7 @@ linked_list::~linked_list(){
 }
 
 bool linked_list::isEmpty(){
-    return ( head == NULL
-            );}
+    return ( head == NULL );}
 
 int linked_list::listSize(){
     Token* temp = head;
